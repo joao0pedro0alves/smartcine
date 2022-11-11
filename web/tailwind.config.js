@@ -10,7 +10,10 @@ module.exports = {
 
       backgroundImage: {
         app: 'url(/app-bg.png)',
-        'shadow-gradient': 'linear-gradient(190deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 100%);'
+        'shadow-gradient': 'linear-gradient(190deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 100%);',
+        'primary-gradient': 'linear-gradient(190deg, rgba(21,101,192,0) 0%, rgba(21,101,192,0.9) 100%);',
+        'secondary-gradient': 'linear-gradient(190deg, rgba(196,22,28,0) 0%, rgba(196,22,28,0.9) 100%);',
+        'colored-gradient': 'linear-gradient(190deg, rgba(21,101,192,0.5) 0%, rgba(196,22,28,0.8) 100%);',
       },
 
       colors: {
