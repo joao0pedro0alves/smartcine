@@ -11,7 +11,7 @@ export default function Document() {
                 <link rel="shortcut icon" href="/favicon.png" />
                 <title>SmartCine</title>
             </Head>
-            <body className="bg-gray-800 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scrollbar-corner-rounded-full">
+            <body className="bg-gray-900 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scrollbar-corner-rounded-full">
                 <Main />
                 <NextScript />
             </body>
