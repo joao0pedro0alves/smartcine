@@ -7,7 +7,10 @@ export const apiEndPoints = {
 
         credits(movieId: string) {
             return `movie/${movieId}/credits`
-        }
+        },
+        videos(movieId: string) {
+            return `movie/${movieId}/videos`
+        },
     },
 
     
