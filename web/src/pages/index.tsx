@@ -10,7 +10,6 @@ import {sample} from '../utils/sample'
 import {Image} from '../components/helper/Image'
 import {Container} from '../components/Container'
 import {MovieHeader} from '../components/MovieHeader'
-import {VoteAverage} from '../components/VoteAverage'
 import {Credits} from '../components/Credits'
 import Movies from '../components/Movies'
 
@@ -24,7 +23,7 @@ export default function Home({bannerMovie}: HomeProps) {
         <Container
             Header={() => (
                 <MovieHeader movie={bannerMovie}>
-                    <div className="w-full flex gap-8">
+                    <div className="w-full py-0 flex flex-col items-center gap-16 md:flex-row sm:py-4">
                         <Image
                             width={400}
                             height={600}
@@ -34,7 +33,7 @@ export default function Home({bannerMovie}: HomeProps) {
                         />
 
                         <div className="py-8">
-                            <h1 className="text-white font-serif text-3xl font-black">
+                            <h1 className="text-white font-serif text-4xl font-black">
                                 {bannerMovie?.title}
                             </h1>
 
@@ -42,7 +41,7 @@ export default function Home({bannerMovie}: HomeProps) {
                                 {bannerMovie?.overview}
                             </p>
 
-                            <strong className="text-zinc-100">
+                            <strong className="text-zinc-400">
                                 {moment(bannerMovie?.release_date).format('DD [de] MMMM [de] YYYY')}
                                 {' | '}
                                 {convertMinutesToHourString(bannerMovie?.runtime)}
@@ -50,14 +49,10 @@ export default function Home({bannerMovie}: HomeProps) {
                                 {bannerMovie?.vote_count} Avaliações
                             </strong>
 
-                            <div className="mt-4">
-                                <VoteAverage
-                                    value={bannerMovie?.vote_average}
+                            <div className="mt-8">
+                                <Credits 
+                                    movieId={bannerMovie.id}
                                 />
-                            </div>
-
-                            <div className="mt-4">
-                                <Credits />
                             </div>
                         </div>
                     </div>

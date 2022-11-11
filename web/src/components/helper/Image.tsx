@@ -15,7 +15,11 @@ export function Image(props: ImageProps) {
             {!loaded && (
                 <div className="animate-pulse absolute inset-0">
                     <div
-                        className={`flex justify-center items-center w-[${props.width}px] h-[${props.height}px] bg-gray-700`}
+                        className={`flex justify-center items-center bg-gray-700`}
+                        style={{
+                            width: props.width,
+                            height: props.height
+                        }}
                     >
                         <svg
                             className="w-12 h-12 text-gray-200"

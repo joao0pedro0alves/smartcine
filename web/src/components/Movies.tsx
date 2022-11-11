@@ -4,13 +4,11 @@ import {CaretRight} from 'phosphor-react'
 
 import {IMovie} from '../@types'
 import {api} from '../services/api'
+import {getMovieBanner} from '../utils/getMovieBanner'
 
 import {Slider} from './helper/Slider'
 import {Image} from './helper/Image'
-import {getMovieBanner} from '../utils/getMovieBanner'
-
-const AMOUNT_SKELETONS = 8
-
+import {ListSkeleton} from './helper/ListSkeleton'
 export interface MoviesProps {
     title?: string
     url?: string
@@ -22,14 +20,14 @@ export interface MoviesProps {
 }
 
 export function Movies({title, url, showSeeAll = true}: MoviesProps) {
-    const [data, setData] = useState<IMovie[]>([])
+    const [movies, setMovies] = useState<IMovie[]>([])
     const [loading, setLoading] = useState(Boolean(url))
 
     async function fetchMovies() {
         if (url) {
             try {
                 const response = await api.get(url)
-                setData(response.data.results)
+                setMovies(response.data.results)
             } catch (error) {
                 console.log(error)
                 throw error;
@@ -43,17 +41,6 @@ export function Movies({title, url, showSeeAll = true}: MoviesProps) {
     useEffect(() => {
         fetchMovies()
     }, [url])
-
-    const Skeleton = () => (
-        <div role="status" className="w-full animate-pulse flex gap-2">
-            {[...Array(AMOUNT_SKELETONS)].map((_, index) => (
-                <div
-                    key={index}
-                    className="h-[268px] w-[200px] rounded bg-gray-700"
-                />
-            ))}
-        </div>
-    )
 
     return (
         <div className="p-4">
@@ -74,10 +61,14 @@ export function Movies({title, url, showSeeAll = true}: MoviesProps) {
 
             <div>
                 {loading ? (
-                    <Skeleton />
+                    <ListSkeleton 
+                        amount={8}
+                        height={268}
+                        width={200}
+                    />
                 ) : (
                     <Slider
-                        data={data}
+                        data={movies}
                         keyExtractor={(item) => item.id}
                         renderItem={({item}) => (
                             <Link className='hover:opacity-80 transition-opacity' href={`/detail?movie=${item.id}`}>

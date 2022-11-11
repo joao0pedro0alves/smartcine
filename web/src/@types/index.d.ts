@@ -44,7 +44,7 @@ export interface Producer {
     popularity: number
     profile_path: string
     department: string
-    job: string
+    job: 'Director' | 'Writer'
 }
 
 export interface ICredits {

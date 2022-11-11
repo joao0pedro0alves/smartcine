@@ -15,7 +15,7 @@ export function Container({children, Header}: ContainerProps) {
             <div className="container mx-auto">{children}</div>
 
             <footer className="w-full bg-gray-800">
-                <div className="container mx-auto py-4 flex justify-between">
+                <div className="container mx-auto py-4 flex justify-between sm:flex-col sm:gap-4 sm:items-center">
                     <div>
                         <a href="https://www.themoviedb.org/documentation/api">
                             <Image
