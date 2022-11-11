@@ -1,105 +1,102 @@
-import {useState, useEffect} from 'react'
-import Image from 'next/image'
 import moment from 'moment'
 
-import {THEMOVIEDB_CONFIG} from '../config/themoviedb'
 import {IMovie} from '../@types'
 import {api} from '../services/api'
+import {apiEndPoints} from '../constants/apiEndPoints'
 import {getMovieBanner} from '../utils/getMovieBanner'
 import {convertMinutesToHourString} from '../utils/convertMinutesToHourString'
+import {sample} from '../utils/sample'
 
+import {Image} from '../components/helper/Image'
 import {Container} from '../components/Container'
 import {MovieHeader} from '../components/MovieHeader'
 import {VoteAverage} from '../components/VoteAverage'
+import {Credits} from '../components/Credits'
+import Movies from '../components/Movies'
 
-export default function Home() {
-    const [data, setData] = useState<IMovie[]>([])
-    const [_, setLoading] = useState(true)
+interface HomeProps {
+    bannerMovie: IMovie
+}
 
-    useEffect(() => {
-        async function loadMovies() {
-            try {
-                const response = await api.get('movie/popular', {
-                    params: THEMOVIEDB_CONFIG,
-                })
-
-                const movies = response.data.results
-                setData(movies)
-
-            } catch (error) {
-                console.log(error)
-
-            } finally {
-                setLoading(false)
-            }
-        }
-
-        loadMovies()
-    }, [])
-
-    const movie = data[3]
-
+export default function Home({bannerMovie}: HomeProps) {
+    
     return (
-        <Container 
+        <Container
             Header={() => (
-                    <MovieHeader movie={movie}>
-                        <div className='w-full flex gap-8'>
-                            {movie && (
-                                <Image 
-                                    width={400}
-                                    height={600}
-                                    alt={`Poster do filme ${movie.title}`}
-                                    src={getMovieBanner(movie, true)}
-                                    className='shadow-xl'
+                <MovieHeader movie={bannerMovie}>
+                    <div className="w-full flex gap-8">
+                        <Image
+                            width={400}
+                            height={600}
+                            alt={`Poster do filme ${bannerMovie.title}`}
+                            src={getMovieBanner(bannerMovie, true)}
+                            className="shadow-xl min-h-[400px] min-w-[400px]"
+                        />
+
+                        <div className="py-8">
+                            <h1 className="text-white font-serif text-3xl font-black">
+                                {bannerMovie?.title}
+                            </h1>
+
+                            <p className="text-zinc-200 text-lg py-4">
+                                {bannerMovie?.overview}
+                            </p>
+
+                            <strong className="text-zinc-100">
+                                {moment(bannerMovie?.release_date).format('DD [de] MMMM [de] YYYY')}
+                                {' | '}
+                                {convertMinutesToHourString(bannerMovie?.runtime)}
+                                {' | '}
+                                {bannerMovie?.vote_count} Avaliações
+                            </strong>
+
+                            <div className="mt-4">
+                                <VoteAverage
+                                    value={bannerMovie?.vote_average}
                                 />
-                            )}
+                            </div>
 
-                            <div className='py-8'>
-                                <h1 className='text-white font-serif text-3xl font-black'>
-                                    {movie?.title}
-                                </h1>
-
-                                <p className='text-zinc-200 text-lg py-4'>
-                                    {movie.overview}
-                                </p>
-
-                                <strong className='text-zinc-100'>
-                                    {moment(movie.release_date).format('DD [de] MMMM [de] YYYY')}{' | '}
-                                    {convertMinutesToHourString(movie.runtime)}{' | '}
-                                    {movie.vote_count} Avaliações
-                                </strong>
-
-                                <div className='mt-4'>
-                                    <VoteAverage 
-                                        value={movie.vote_average}
-                                    />
-                                </div>
+                            <div className="mt-4">
+                                <Credits />
                             </div>
                         </div>
-                    </MovieHeader>
-                )}
+                    </div>
+                </MovieHeader>
+            )}
         >
-            {/* <Movies
-                title="Em alta"
-                url="movie/popular"
-                onPressMovie={setSelectedMovie}
-                onLoadMovies={(movies) => setBannerMovie(sample(movies))}
-            />
-            <Movies
-                title="Agora nos cinemas"
-                url="movie/upcoming"
-                onPressMovie={setSelectedMovie}
-            />
-            <Movies
-                title="Lançamentos"
-                url="movie/now_playing"
-                onPressMovie={setSelectedMovie}
-            />
-            <Movies
-                title="Aclamados pela crítica"
-                url="movie/top_rated"
-                onPressMovie={setSelectedMovie}
-            /> */}
+            <div className='py-4'>
+                <Movies
+                    title="Em alta"
+                    url={apiEndPoints.movie.popular}
+                    onPressMovie={() => {}}
+                />
+                <Movies
+                    title="Agora nos cinemas"
+                    url={apiEndPoints.movie.upcoming}
+                    onPressMovie={() => {}}
+                />
+                <Movies
+                    title="Lançamentos"
+                    url={apiEndPoints.movie.nowPlaying}
+                    onPressMovie={() => {}}
+                />
+                <Movies
+                    title="Aclamados pela crítica"
+                    url={apiEndPoints.movie.topRated}
+                    onPressMovie={() => {}}
+                />
+            </div>
         </Container>
     )
+}
+
+export const getStaticProps = async () => {
+    const movieResponse = await api.get(apiEndPoints.movie.popular)
+    const moviesWithOverview = movieResponse.data.results.filter((movie: IMovie) => movie.overview.trim())
+
+    return {
+        props: {
+            bannerMovie: sample(moviesWithOverview)
+        }
+    }
 }
