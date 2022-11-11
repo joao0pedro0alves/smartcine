@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    --webkit-font-smoothing: antialised;
+}
+
+.content-linear-shadow {
+    @apply relative before:content-[''] before:bg-shadow-gradient before:h-screen before:z-0 before:absolute before:inset-0
+}
