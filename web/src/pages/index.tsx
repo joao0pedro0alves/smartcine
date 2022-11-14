@@ -1,16 +1,17 @@
+import {useState} from 'react'
 import moment from 'moment'
 
 import {IMovie} from '../@types'
 import {api} from '../services/api'
 import {apiEndPoints} from '../constants/apiEndPoints'
 import {getMovieBanner} from '../utils/getMovieBanner'
-import {convertMinutesToHourString} from '../utils/convertMinutesToHourString'
 import {sample} from '../utils/sample'
 
 import {Image} from '../components/helper/Image'
 import {Container} from '../components/Container'
 import {MovieHeader} from '../components/MovieHeader'
 import {Credits} from '../components/Credits'
+import {MovieDetail} from '../components/MovieDetail'
 import Movies from '../components/Movies'
 
 interface HomeProps {
@@ -18,6 +19,7 @@ interface HomeProps {
 }
 
 export default function Home({bannerMovie}: HomeProps) {
+    const [selectedMovie, setSelectedMovie] = useState<IMovie>({} as IMovie)
     
     return (
         <Container
@@ -44,7 +46,7 @@ export default function Home({bannerMovie}: HomeProps) {
                             <strong className="text-zinc-400">
                                 {moment(bannerMovie?.release_date).format('DD [de] MMMM [de] YYYY')}
                                 {' | '}
-                                {convertMinutesToHourString(bannerMovie?.runtime)}
+                                {parseFloat(String(bannerMovie.vote_average)).toFixed(1)}
                                 {' | '}
                                 {bannerMovie?.vote_count} Avaliações
                             </strong>
@@ -63,24 +65,30 @@ export default function Home({bannerMovie}: HomeProps) {
                 <Movies
                     title="Em alta"
                     url={apiEndPoints.movie.popular}
-                    onPressMovie={() => {}}
+                    onPressMovie={setSelectedMovie}
                 />
                 <Movies
                     title="Agora nos cinemas"
                     url={apiEndPoints.movie.upcoming}
-                    onPressMovie={() => {}}
+                    onPressMovie={setSelectedMovie}
                 />
                 <Movies
                     title="Lançamentos"
                     url={apiEndPoints.movie.nowPlaying}
-                    onPressMovie={() => {}}
+                    onPressMovie={setSelectedMovie}
                 />
                 <Movies
                     title="Aclamados pela crítica"
                     url={apiEndPoints.movie.topRated}
-                    onPressMovie={() => {}}
+                    onPressMovie={setSelectedMovie}
                 />
             </div>
+
+            <MovieDetail 
+                movie={selectedMovie}
+                show={Boolean(selectedMovie.id)}
+                onClose={() => setSelectedMovie({} as IMovie)}
+            />
         </Container>
     )
 }

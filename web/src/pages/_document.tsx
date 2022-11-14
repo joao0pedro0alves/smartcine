@@ -8,7 +8,7 @@ export default function Document() {
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
                 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
                 <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet" />
-                <link rel="shortcut icon" href="/favicon.png" />
+                <link rel="shortcut icon" href="/favicon.ico" />
                 <title>SmartCine</title>
             </Head>
             <body className="bg-gray-900 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scrollbar-corner-rounded-full">
