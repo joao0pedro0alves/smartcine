@@ -4,7 +4,8 @@
 
 <p align="center">
   <a href="#sobre-o-projeto-book">Sobre o projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#tecnologias-gear">Tecnologias</a>
+  <a href="#web-gear">Web</a>
+  <a href="#mobile-phoner">Mobile</a>
 </p>
 
 # Sobre o projeto :book:
