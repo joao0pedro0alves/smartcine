@@ -19,7 +19,7 @@ export interface MoviesProps {
     onLoadMovies?: (movies: IMovie[]) => void
 }
 
-export function Movies({title, url, showSeeAll = true}: MoviesProps) {
+export function Movies({title, url, showSeeAll = true, onPressMovie}: MoviesProps) {
     const [movies, setMovies] = useState<IMovie[]>([])
     const [loading, setLoading] = useState(Boolean(url))
 
@@ -71,7 +71,10 @@ export function Movies({title, url, showSeeAll = true}: MoviesProps) {
                         data={movies}
                         keyExtractor={(item) => item.id}
                         renderItem={({item}) => (
-                            <Link className='hover:opacity-80 transition-opacity' href={`/detail?movie=${item.id}`}>
+                            <button 
+                                className='hover:opacity-80 transition-opacity' 
+                                onClick={onPressMovie ? () => onPressMovie(item) : undefined}
+                            >
                                 <Image
                                     className='rounded'
                                     alt={`Poster filme ${item.title}`}
@@ -79,7 +82,7 @@ export function Movies({title, url, showSeeAll = true}: MoviesProps) {
                                     height={268}
                                     width={200}
                                 />
-                            </Link>
+                            </button>
                         )}
                     />
                 )}

@@ -55,7 +55,7 @@ export function Credits({movieId}: CreditsProps) {
                 ) : (
                     <div className='flex gap-2'>
                         {first(credits.cast, 4).map((actor) => (
-                            <div className='bg-gray-800 rounded overflow-hidden w-[112px]'>
+                            <div key={actor.id} className='bg-gray-800 rounded overflow-hidden w-[112px]'>
                                 <Image
                                     key={actor.id}
                                     alt={`Foto ator ${actor.original_name}`}
