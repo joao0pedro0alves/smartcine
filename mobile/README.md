@@ -41,7 +41,12 @@ e adicioná-la a seu arquivo .env
 ### Clone esse repositório :floppy_disk:
 
 ```bash
-$ git clone https://github.com/joao0pedro0alves/coletor-almoxarifado.git
+$ git clone https://github.com/joao0pedro0alves/smartcine.git
+```
+### Acesse a partiçao mobile
+
+```bash
+$ cd mobile
 ```
 
 ### Instale as dependências :wrench:
