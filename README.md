@@ -4,8 +4,8 @@
 
 <p align="center">
   <a href="#sobre-o-projeto-book">Sobre o projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#web-gear">Web</a>
-  <a href="#mobile-phoner">Mobile</a>
+  <a href="#web-gear">Web</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#mobile-iphone">Mobile</a>
 </p>
 
 # Sobre o projeto :book:
@@ -15,6 +15,33 @@ Desenvolvimento com base na API [The movie DB](https://developers.themoviedb.org
 
 É necessário criar uma [chave de API](https://developers.themoviedb.org/3/getting-started/authentication)
 e adicioná-la a seu arquivo .env
+
+Se por acaso gostar do resultado, peço uma estrelinha pelo trabalho que deu, obrigado !! :heart:
+
+# Web :gear:
+
+<div align='center'>
+  <img src="https://user-images.githubusercontent.com/78969510/202267657-eb6ea481-42e2-457c-a3dd-e192d4c8872a.png" />
+</div>
+
+# Mobile :iphone:
+
+<table>
+  <tr>
+    <td valign="top">
+      <img width=240 src="https://user-images.githubusercontent.com/78969510/202268174-d04821a7-f9e1-476f-8205-417827b11553.jpeg"/>
+    </td>
+    <td valign="top">
+      <img width=240 src="https://user-images.githubusercontent.com/78969510/202268212-e7bda89a-53dd-4518-a049-e2f28cdae6c6.jpeg"/>
+    </td>
+    <td valign="top">
+      <img width=240 src="https://user-images.githubusercontent.com/78969510/202268241-d0296c38-a8ce-4d28-b21b-c3c63e371ec4.jpeg"/>
+    </td>
+    <td valign="top">
+      <img width=240 src="https://user-images.githubusercontent.com/78969510/202268273-386323b3-75eb-4bea-bf49-26994b88ee08.jpeg"/>
+    </td>
+  </tr>
+</table>
 
 ## Contato
 
