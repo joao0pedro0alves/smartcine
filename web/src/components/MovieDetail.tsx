@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import moment from 'moment'
 import * as Dialog from '@radix-ui/react-dialog'
 import {Info, PlayCircle, Plus} from 'phosphor-react'
@@ -36,10 +37,10 @@ export function MovieDetail({movie, show, onClose}: MovieDetailProps) {
                             </button>
 
                             <div className='mt-4 flex gap-4 justify-between max-w-[200px]'>
-                                <button className='flex flex-col items-center hover:opacity-80 transition-opacity'>
+                                <Link href={{pathname: '/detail', query: {movieId: movie.id}}} className='flex flex-col items-center hover:opacity-80 transition-opacity'>
                                     <Info size={25} className='text-zinc-100'/>
                                     <span className='block mt-1 text-sm'>Saiba mais</span>
-                                </button>
+                                </Link>
 
                                 <button className='flex flex-col items-center hover:opacity-80 transition-opacity'>
                                     <Plus size={25} className='text-zinc-100'/>

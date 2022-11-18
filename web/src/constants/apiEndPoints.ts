@@ -5,6 +5,9 @@ export const apiEndPoints = {
         nowPlaying: "movie/now_playing",
         topRated: "movie/top_rated",
 
+        show(movieId: string) {
+            return `movie/${movieId}`
+        },
         credits(movieId: string) {
             return `movie/${movieId}/credits`
         },

@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.10.14",
     "@radix-ui/react-dialog": "^1.0.2",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",

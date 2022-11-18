@@ -12,9 +12,10 @@ interface MovieHeaderProps {
     isPoster?: boolean
     showBackButton?: boolean
     showFavoriteButton?: boolean
+    showBackgroundVideo?: boolean
 }
 
-export function MovieHeader({movie, isPoster, children}: MovieHeaderProps) {
+export function MovieHeader({movie, isPoster, children, showBackgroundVideo = true}: MovieHeaderProps) {
     const [videoKey, setVideoKey] = useState('')
 
     async function fetchMovieVideos() {
@@ -27,7 +28,7 @@ export function MovieHeader({movie, isPoster, children}: MovieHeaderProps) {
                 const officialVideo = videos.find((v) => v.official)
 
                 if (officialVideo) {
-                    setVideoKey('')
+                    setVideoKey(officialVideo.key)
                 }
             }
         } catch (error) {
@@ -36,8 +37,10 @@ export function MovieHeader({movie, isPoster, children}: MovieHeaderProps) {
     }
 
     useEffect(() => {
-        fetchMovieVideos()
-    }, [movie])
+        if (showBackgroundVideo) {
+            fetchMovieVideos()
+        }
+    }, [showBackgroundVideo, movie])
 
     return (
         <div
@@ -49,14 +52,14 @@ export function MovieHeader({movie, isPoster, children}: MovieHeaderProps) {
             }}
         >
             <div className="content-linear-shadow">
-                {videoKey && (
+                {showBackgroundVideo && videoKey && (
                     <iframe
                         onEnded={() => setVideoKey('')}
                         src={`https://www.youtube.com/embed/${videoKey}?controls=0&autoplay=1&mute=1&playsinline=0&loop=1`}
                         title="YouTube movie trailer"
                         allowFullScreen
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] pointer-events-none min-h-[100vh] min-w-full z-0"
+                        className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] pointer-events-none h-screen min-w-full z-0"
                     />
                 )}
 
