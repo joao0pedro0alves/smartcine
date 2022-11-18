@@ -5,9 +5,8 @@ import {LinearGradient} from "expo-linear-gradient"
 import {Entypo} from '@expo/vector-icons'
 import Toast from 'react-native-toast-message'
 
-import api from "../../services/api"
+import {api} from "../../services/api"
 import {THEMOVIEDB_BANNER_URL} from "../../config/themoviedb"
-import {THEMOVIEDB_CONFIG} from "../../config/themoviedb"
 
 import {THEME} from "../../theme"
 import {styles} from "./styles"
@@ -19,14 +18,19 @@ export interface Genre {
 export interface IMovie {
     id: string
     title: string
+    original_title: string
+    original_language: string
+    adult: boolean
+
     poster_path: string
     backdrop_path: string
+
     release_date: string
     vote_average: number
     vote_count: number
     overview: string
 
-    runtime?: number,
+    runtime?: number
     genres?: Genre[]
 }
 
@@ -78,9 +82,7 @@ export function Movies({
         async function loadMovies() {
             if (url) {
                 try {
-                    const response = await api.get(url, {
-                        params: THEMOVIEDB_CONFIG,
-                    })
+                    const response = await api.get(url)
 
                     const movies = response.data.results
                     setData(movies)
@@ -130,6 +132,7 @@ export function Movies({
             {loading ? (
                 <View style={styles.content}>
                     <FlatList
+                        showsHorizontalScrollIndicator={false}
                         horizontal
                         data={[1, 2, 3, 4]}
                         renderItem={() => (
@@ -152,6 +155,7 @@ export function Movies({
                 <View style={styles.content} {...props}>
                     <FlatList
                         horizontal
+                        showsHorizontalScrollIndicator={false}
                         data={externalData || data}
                         keyExtractor={(item) => item.id}
                         renderItem={({item}) => (

@@ -22,15 +22,14 @@ const DEFAULT_THEME = {
         DIVIDER: "#EFEFEF",
         DISABLED: "#CBCBDD",
 
-        PRIMARY: "#1565C0",
+        PRIMARY: "#004FA4",
         SUCCESS: "#2E7D32",
         ALERT: "#D32F2F",
         WARNING: "#F3C200",
 
         FOOTER: ["rgba(0,0,0,0)", "rgba(0,0,0,0.9)"],
-        OVERLAY: "rgba(0,0,0,0.25)",
-        PRIMARY_OVERLAY: "rgba(21, 101, 192, 0.35)",
         WHITE_OVERLAY: "rgba(255, 255, 255, 0.45)",
+        OVERLAY: "rgba(0,0,0,0.25)",
 
         CUSTOM: {
             RATING_STAR: '#FFE234'

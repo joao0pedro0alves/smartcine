@@ -3,7 +3,6 @@ import {View, FlatList, Text, Image} from "react-native"
 import {FontAwesome} from "@expo/vector-icons"
 
 import {api} from '../../services/api'
-import {THEMOVIEDB_CONFIG} from "../../config/themoviedb"
 import {getGravatarUrl} from "../../utils/gravatar"
 
 import {styles} from "./styles"
@@ -33,10 +32,7 @@ export function Reviews({movieId}: ReviewsProps) {
     async function fetchReviews() {
         try {
 
-            const response = await api.get(`/movie/${movieId}/reviews`, {
-                params: THEMOVIEDB_CONFIG,
-            })
-
+            const response = await api.get(`/movie/${movieId}/reviews`)
             setReviews(response.data.results)
 
         } catch (error) {

@@ -3,7 +3,6 @@ import {View} from "react-native"
 import Toast from "react-native-toast-message"
 
 import api from "../../services/api"
-import {THEMOVIEDB_CONFIG} from "../../config/themoviedb"
 
 import {WatchProvider} from "../WatchProvider"
 
@@ -39,10 +38,7 @@ export function WatchProviders({movieId}: WatchProvidersProps) {
 
     async function fetchWatchProviders() {
         try {
-            const response = await api.get(`movie/${movieId}/watch/providers`, {
-                params: THEMOVIEDB_CONFIG,
-            })
-
+            const response = await api.get(`movie/${movieId}/watch/providers`)
             setWatchProviders(response.data)
         } catch (error) {
             Toast.show({

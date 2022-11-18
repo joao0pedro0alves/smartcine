@@ -6,9 +6,12 @@ import {TabBarIcon} from "../components/TabBarIcon"
 
 import {Home} from "../screens/Home"
 import {Favorites} from "../screens/Favorites"
+
 import {MovieSearch} from "../screens/MovieSearch"
 import {MovieDetail} from "../screens/MovieDetail"
 import {MovieTrailer} from "../screens/MovieTrailer"
+
+import {PersonDetail} from "../screens/PersonDetail"
 
 const {Navigator, Screen} = createBottomTabNavigator()
 
@@ -75,6 +78,13 @@ export function AppRoutes() {
             <Screen
                 name="movieTrailer"
                 component={MovieTrailer}
+                options={{
+                    tabBarButton: () => null
+                }}
+            />
+            <Screen
+                name="personDetail"
+                component={PersonDetail}
                 options={{
                     tabBarButton: () => null
                 }}

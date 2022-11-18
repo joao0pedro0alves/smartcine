@@ -6,9 +6,8 @@ import Toast from "react-native-toast-message"
 
 import moment from 'moment'
 
-import api from "../../services/api"
+import {api} from "../../services/api"
 import {MovieDetailParams} from "../../@types/navigation"
-import {THEMOVIEDB_CONFIG} from "../../config/themoviedb"
 import {convertMinutesToHourString} from "../../utils/convertMinutesToHourString"
 
 import Movies, {IMovie} from "../../components/Movies"
@@ -35,12 +34,8 @@ export function MovieDetail() {
         try {
             setLoading(true)
 
-            const response = await api.get(`movie/${movieId}`, {
-                params: THEMOVIEDB_CONFIG,
-            })
-
-            const data = response.data
-            setMovie(data)
+            const response = await api.get(`movie/${movieId}`)
+            setMovie(response.data)
             
         } catch (error) {
 
@@ -71,11 +66,7 @@ export function MovieDetail() {
 
     return (
         <Background>
-            <MovieHeader
-                movie={movie}
-                showBackButton
-                showFavoriteButton
-            >
+            <MovieHeader movie={movie} showBackButton showFavoriteButton>
                 <View style={styles.playContainer}>
                     <TouchableOpacity
                         style={styles.play}
@@ -111,10 +102,7 @@ export function MovieDetail() {
                         </Text>
                         <Text
                             numberOfLines={1}
-                            style={[
-                                styles.headerMovieDetail,
-                                styles.genders,
-                            ]}
+                            style={[styles.headerMovieDetail, styles.genders]}
                         >
                             {movie?.genres
                                 ?.map((genre) => genre.name)
@@ -128,8 +116,16 @@ export function MovieDetail() {
                 <Text style={styles.title}>Sinopse</Text>
                 <Text style={styles.storyline}>{movie?.overview}</Text>
 
-                <Credits 
+                <Credits
                     movieId={movieId}
+                    onPressActor={(actor) =>
+                        navigate("personDetail", {
+                            movieId: movie?.id,
+                            movieBackdrop: movie?.backdrop_path,
+                            personId: actor.id + "",
+                            name: actor.original_name,
+                        })
+                    }
                 />
 
                 <Movies
@@ -146,9 +142,7 @@ export function MovieDetail() {
                     onPressMovie={handleShowMovie}
                 />
 
-                <Reviews 
-                    movieId={movieId} 
-                />
+                <Reviews movieId={movieId} />
             </LoaderContainer>
         </Background>
     )

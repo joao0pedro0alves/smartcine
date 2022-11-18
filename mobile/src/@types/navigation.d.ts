@@ -8,12 +8,22 @@ export interface MovieDetailParams {
     title: string
 }
 
+export interface PersonDetailParams {
+    personId: string
+    name: string
+    
+    movieId?: string
+    movieBackdrop?: string
+}
+
 export interface AppRootParamList {
     home: undefined
     favorites: undefined
     search: MovieSearchParams
     movieDetail: MovieDetailParams
     movieTrailer: MovieDetailParams
+
+    personDetail: PersonDetailParams
 }
 
 export declare global {

@@ -1,66 +1,26 @@
 import {useState, useEffect} from "react"
-import {FlatList, View, Text, Image} from "react-native"
+import {FlatList, View, Text, Image, TouchableOpacity} from "react-native"
 import Toast from "react-native-toast-message"
 
-import api from "../../services/api"
-import {THEMOVIEDB_CAST_PROFILE_URL, THEMOVIEDB_CONFIG} from "../../config/themoviedb"
+import {api} from "../../services/api"
+import {Actor, ICredits} from "../../@types"
+import {THEMOVIEDB_CAST_PROFILE_URL} from "../../config/themoviedb"
 
 import {styles} from "./styles"
 
-interface Actor {
-    adult: boolean
-    gender: number
-    id: number
-    cast_id: number
-    credit_id: string
-    order: number
-    known_for_department: string
-    original_name: string
-    name: string
-    character: string
-    popularity: number
-    profile_path: string
-}
-
-interface Producer {
-    adult: boolean
-    gender: number
-    id: number
-    credit_id: string
-
-    known_for_department: string
-    original_name: string
-    name: string
-
-    popularity: number
-    profile_path: string
-    department: string
-    job: string
-}
-
-interface ICredits {
-    id: number
-    cast: Actor[]
-    crew: Producer[]
-}
-
 interface CreditsProps {
     movieId: string
+    onPressActor: (actor: Actor) => void
 }
 
-export function Credits({movieId}: CreditsProps) {
+export function Credits({movieId, onPressActor}: CreditsProps) {
     const [credits, setCredits] = useState<ICredits>({} as ICredits)
-    // const [_, setIsLoading] = useState(true)
 
     async function fetchCredits() {
         try {
 
-            const response = await api.get(`movie/${movieId}/credits`, {
-                params: THEMOVIEDB_CONFIG,
-            })
-
+            const response = await api.get(`movie/${movieId}/credits`)
             setCredits(response.data)
-            // setIsLoading(true)
             
         } catch (error) {
 
@@ -73,7 +33,6 @@ export function Credits({movieId}: CreditsProps) {
             throw error
             
         } finally {
-            // setIsLoading(false)
         }
 
     }
@@ -96,7 +55,7 @@ export function Credits({movieId}: CreditsProps) {
                     data={credits.cast}
                     keyExtractor={item => item.id + ''}
                     renderItem={({item}) => (
-                        <View style={styles.listItem}>
+                        <TouchableOpacity activeOpacity={0.8} style={styles.listItem} onPress={() => onPressActor(item)}>
                             <Image
                                 resizeMode="cover"
                                 style={styles.avatar}
@@ -111,7 +70,7 @@ export function Credits({movieId}: CreditsProps) {
                             <Text numberOfLines={1} style={styles.name}>
                                 {item.original_name}
                             </Text>
-                        </View>
+                        </TouchableOpacity>
                     )}
                 />
             </View>
