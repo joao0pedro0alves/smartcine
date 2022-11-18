@@ -10,8 +10,8 @@ import {MovieHeader} from "../../components/MovieHeader"
 import {Button} from "../../components/Button"
 import {Background} from "../../components/Background"
 import {FavoriteMovies} from "../../components/FavoriteMovies"
+import {Summary} from "../../components/Summary"
 import Movies, {IMovie} from "../../components/Movies"
-import {MovieSummary} from "../MovieSummary"
 
 import {THEME} from "../../theme"
 import {styles} from "./styles"
@@ -104,7 +104,7 @@ export function Home() {
             />
             <FavoriteMovies onPressMovie={setSelectedMovie} />
 
-            <MovieSummary
+            <Summary
                 current={selectedMovie}
                 visible={!!selectedMovie}
                 onRequestClose={() => setSelectedMovie(null)}
