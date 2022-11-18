@@ -1,5 +1,5 @@
 import {useState, useEffect, memo} from "react"
-import {FlatList, View, ViewProps, Image, Text, Pressable, Animated, Easing, TouchableOpacity} from "react-native"
+import {FlatList, View, ViewProps, Image, Text, Animated, Easing, TouchableOpacity} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 import {LinearGradient} from "expo-linear-gradient"
 import {Entypo} from '@expo/vector-icons'
@@ -17,6 +17,7 @@ export interface Genre {
 }
 export interface IMovie {
     id: string
+    name?: string
     title: string
     original_title: string
     original_language: string
@@ -32,6 +33,7 @@ export interface IMovie {
 
     runtime?: number
     genres?: Genre[]
+    media_type?: string
 }
 
 export interface MoviesProps extends ViewProps {
@@ -83,8 +85,8 @@ export function Movies({
             if (url) {
                 try {
                     const response = await api.get(url)
-
                     const movies = response.data.results
+
                     setData(movies)
 
                     if (onLoadMovies) {
@@ -159,7 +161,7 @@ export function Movies({
                         data={externalData || data}
                         keyExtractor={(item) => item.id}
                         renderItem={({item}) => (
-                            <Pressable onPress={() => onPressMovie ? onPressMovie(item) : undefined}>
+                            <TouchableOpacity activeOpacity={0.8} onPress={() => onPressMovie ? onPressMovie(item) : undefined}>
                                 <Image
                                     resizeMode="cover"
                                     style={styles.cover}
@@ -167,7 +169,7 @@ export function Movies({
                                         uri: `${THEMOVIEDB_BANNER_URL}/${item.poster_path}`,
                                     }}
                                 />
-                            </Pressable>
+                            </TouchableOpacity>
                         )}
                     />
                 </View>

@@ -1,4 +1,4 @@
-import {Modal, ModalProps, View, Pressable, Text, Image, TouchableOpacity, GestureResponderEvent} from "react-native"
+import {Modal, ModalProps, View, Pressable, Text, Image, TouchableOpacity} from "react-native"
 import {Ionicons, AntDesign, Feather} from "@expo/vector-icons"
 import {useNavigation} from "@react-navigation/native"
 import moment from "moment"
@@ -6,17 +6,19 @@ import moment from "moment"
 import {THEMOVIEDB_BANNER_URL} from "../../config/themoviedb"
 import {useFavoriteMovies} from "../../hooks/useFavoriteMovies"
 import {getAverageColor} from '../../utils/getAverageColor'
-import {IMovie} from "../../components/Movies"
+import {IMovie} from "../Movies"
 
 import {styles} from "./styles"
 import {THEME} from "../../theme"
 
-interface MovieSummaryProps extends ModalProps {
+interface SummaryProps extends ModalProps {
     current: IMovie | null
     onRequestClose: () => void
 }
 
-export function MovieSummary({current, onRequestClose, ...props}: MovieSummaryProps) {
+export function Summary({current, onRequestClose, ...props}: SummaryProps) {
+    const isMovie = current?.media_type === undefined || current?.media_type === 'movie'
+
     const favoriteMovies = useFavoriteMovies()
 
     const {navigate} = useNavigation()
@@ -67,7 +69,7 @@ export function MovieSummary({current, onRequestClose, ...props}: MovieSummaryPr
 
                         <View style={styles.movieInnerContent}>
                             <Text style={styles.movieTitle} numberOfLines={1}>
-                                {current?.title}
+                                {current?.title || current?.name}
                             </Text>
 
                             <View style={styles.movieDetail}>
@@ -91,7 +93,7 @@ export function MovieSummary({current, onRequestClose, ...props}: MovieSummaryPr
                     </View>
 
                     <View style={styles.controls}>
-                        <TouchableOpacity style={styles.control} onPress={handleShowMovieDetail}>
+                        <TouchableOpacity disabled={!isMovie} style={styles.control} onPress={handleShowMovieDetail}>
                             <View style={styles.controlIcon}>
                                 <Feather
                                     name="info"
@@ -102,7 +104,7 @@ export function MovieSummary({current, onRequestClose, ...props}: MovieSummaryPr
                             <Text style={styles.controlText}>Saiba mais</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.control} onPress={handleAddMovie}>
+                        <TouchableOpacity disabled={!isMovie} style={styles.control} onPress={handleAddMovie}>
                             <View style={styles.controlIcon}>
                                 <AntDesign
                                     name="plus"
@@ -113,7 +115,7 @@ export function MovieSummary({current, onRequestClose, ...props}: MovieSummaryPr
                             <Text style={styles.controlText}>Minha lista</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.control} onPress={handleShowMovieTrailer}>
+                        <TouchableOpacity disabled={!isMovie} style={styles.control} onPress={handleShowMovieTrailer}>
                             <View
                                 style={[
                                     styles.controlIcon,
