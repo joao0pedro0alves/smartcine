@@ -4,14 +4,9 @@ import {Octicons, MaterialIcons} from "@expo/vector-icons"
 import {styles} from "./styles"
 import {TabBarIcon} from "../components/TabBarIcon"
 
-import {Home} from "../screens/Home"
+import {StackRoutes} from './stack.routes'
 import {Favorites} from "../screens/Favorites"
-
 import {MovieSearch} from "../screens/MovieSearch"
-import {MovieDetail} from "../screens/MovieDetail"
-import {MovieTrailer} from "../screens/MovieTrailer"
-
-import {PersonDetail} from "../screens/PersonDetail"
 
 const {Navigator, Screen} = createBottomTabNavigator()
 
@@ -29,7 +24,7 @@ export function AppRoutes() {
         >
             <Screen
                 name="home"
-                component={Home}
+                component={StackRoutes}
                 options={{
                     title: 'Início',
                     tabBarIcon: (props) => (
@@ -65,28 +60,6 @@ export function AppRoutes() {
                             FocusedIcon={<MaterialIcons name="favorite" />}
                         />
                     ),
-                }}
-            />
-
-            <Screen
-                name="movieDetail"
-                component={MovieDetail}
-                options={{
-                    tabBarButton: () => null
-                }}
-            />
-            <Screen
-                name="movieTrailer"
-                component={MovieTrailer}
-                options={{
-                    tabBarButton: () => null
-                }}
-            />
-            <Screen
-                name="personDetail"
-                component={PersonDetail}
-                options={{
-                    tabBarButton: () => null
                 }}
             />
         </Navigator>
