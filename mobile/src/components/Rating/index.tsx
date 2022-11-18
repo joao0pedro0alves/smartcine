@@ -7,12 +7,13 @@ import {THEME} from "../../theme"
 interface RatingProps extends ViewProps {
     value?: number
     evaluationsCount?: number
+    isPopularity?: boolean
 }
 
 const IMDB_METRIC_RATING = 10
 const APP_METRIC_RATING = 5
 
-export function Rating({value = 0}: RatingProps) {
+export function Rating({value = 0, isPopularity}: RatingProps) {
     const ratingValue = value / (IMDB_METRIC_RATING / APP_METRIC_RATING)
 
     const getStarIconName = (starValue: number) => {
@@ -37,7 +38,7 @@ export function Rating({value = 0}: RatingProps) {
                 <View style={styles.star} key={i}>
                     <FontAwesome
                         name={getStarIconName(i + 1)}
-                        color={THEME.COLORS.CUSTOM.RATING_STAR}
+                        color={isPopularity ? THEME.COLORS.PRIMARY : THEME.COLORS.CUSTOM.RATING_STAR}
                         size={20}
                     />
                 </View>
