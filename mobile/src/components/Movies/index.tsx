@@ -5,9 +5,8 @@ import {LinearGradient} from "expo-linear-gradient"
 import {Entypo} from '@expo/vector-icons'
 import Toast from 'react-native-toast-message'
 
-import api from "../../services/api"
+import {api} from "../../services/api"
 import {THEMOVIEDB_BANNER_URL} from "../../config/themoviedb"
-import {THEMOVIEDB_CONFIG} from "../../config/themoviedb"
 
 import {THEME} from "../../theme"
 import {styles} from "./styles"
@@ -83,9 +82,7 @@ export function Movies({
         async function loadMovies() {
             if (url) {
                 try {
-                    const response = await api.get(url, {
-                        params: THEMOVIEDB_CONFIG,
-                    })
+                    const response = await api.get(url)
 
                     const movies = response.data.results
                     setData(movies)

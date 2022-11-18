@@ -3,9 +3,8 @@ import {View, FlatList} from "react-native"
 import {useRoute, useNavigation} from "@react-navigation/native"
 import Toast from "react-native-toast-message"
 
-import api from "../../services/api"
+import {api} from "../../services/api"
 import {MovieDetailParams} from "../../@types/navigation"
-import {THEMOVIEDB_CONFIG} from "../../config/themoviedb"
 
 import {Background} from "../../components/Background"
 import {LoaderContainer} from "../../components/LoaderContainer"
@@ -25,36 +24,35 @@ export function MovieTrailer() {
 
     useEffect(() => {
         const initializeVideos = async () => {
-            try {
-                const response = await api.get(`movie/${movieId}/videos`, {
-                    params: THEMOVIEDB_CONFIG,
-                })
-
-                const data = response.data.results.slice(0, 1)
-
-                setVideos(data)
-                setLoading(false)
-
-                if (data.length === 0) {
+            if (movieId) {
+                try {
+                    const response = await api.get(`movie/${movieId}/videos`, )
+                    const data = response.data.results.slice(0, 1)
+    
+                    setVideos(data)
+                    setLoading(false)
+    
+                    if (data.length === 0) {
+                        Toast.show({
+                            type: "error",
+                            text1: "Opa!",
+                            text2: "Esse filme não possui videos cadastrados",
+                            onHide: goBack
+                        })
+    
+                    }
+    
+                } catch (error) {
                     Toast.show({
                         type: "error",
                         text1: "Opa!",
-                        text2: "Esse filme não possui videos cadastrados",
-                        onHide: goBack
+                        text2: "Não foi possível buscar os videos",
                     })
-
+    
+                    setLoading(false)
                 }
-
-            } catch (error) {
-                Toast.show({
-                    type: "error",
-                    text1: "Opa!",
-                    text2: "Não foi possível buscar os videos",
-                })
-
-                setLoading(false)
             }
-        }
+            }
 
         initializeVideos()
     }, [movieId])

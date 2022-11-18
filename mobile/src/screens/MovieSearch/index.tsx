@@ -46,7 +46,6 @@ export function MovieSearch() {
     async function fetchMovies(page: number = 1) {
         try {
             const params = {
-                ...THEMOVIEDB_CONFIG,
                 query: movieTitle,
                 page,
             }
