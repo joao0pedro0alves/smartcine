@@ -19,14 +19,19 @@ export interface Genre {
 export interface IMovie {
     id: string
     title: string
+    original_title: string
+    original_language: string
+    adult: boolean
+
     poster_path: string
     backdrop_path: string
+
     release_date: string
     vote_average: number
     vote_count: number
     overview: string
 
-    runtime?: number,
+    runtime?: number
     genres?: Genre[]
 }
 
@@ -130,6 +135,7 @@ export function Movies({
             {loading ? (
                 <View style={styles.content}>
                     <FlatList
+                        showsHorizontalScrollIndicator={false}
                         horizontal
                         data={[1, 2, 3, 4]}
                         renderItem={() => (
@@ -152,6 +158,7 @@ export function Movies({
                 <View style={styles.content} {...props}>
                     <FlatList
                         horizontal
+                        showsHorizontalScrollIndicator={false}
                         data={externalData || data}
                         keyExtractor={(item) => item.id}
                         renderItem={({item}) => (

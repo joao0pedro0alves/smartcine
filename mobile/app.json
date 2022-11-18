@@ -25,7 +25,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "com.joao_alves_expo.smartcine"
+      "package": "com.joaoAlvesDev.smartcine"
     },
     "web": {
       "favicon": "./assets/favicon.png"
