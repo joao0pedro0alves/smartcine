@@ -1,9 +1,11 @@
 <h1 align="center">
-  SmartCine
+  <img width=150 src="https://user-images.githubusercontent.com/78969510/202756339-f024a3e3-6466-409b-895a-598ccd2f456d.png" />
+  <br />
+  <span>SmartCine</span>
 </h1>
 
 <p align="center">
-  <a href="#sobre-o-projeto-book">Sobre o projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#sobre-o-projeto-book">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#web-gear">Web</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#mobile-iphone">Mobile</a>
 </p>
