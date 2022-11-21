@@ -6,11 +6,11 @@ import Toast from "react-native-toast-message"
 
 import moment from 'moment'
 
+import {IMovie} from "../../@types"
 import {api} from "../../services/api"
 import {MovieDetailParams} from "../../@types/navigation"
 import {convertMinutesToHourString} from "../../utils/convertMinutesToHourString"
 
-import Movies, {IMovie} from "../../components/Movies"
 import {Background} from "../../components/Background"
 import {MovieHeader} from "../../components/MovieHeader"
 import {LoaderContainer} from "../../components/LoaderContainer"
@@ -18,6 +18,7 @@ import {Rating} from "../../components/Rating"
 import {Reviews} from "../../components/Reviews"
 import {Credits} from "../../components/Credits"
 import {Summary} from "../../components/Summary"
+import Movies from "../../components/Movies"
 
 import {styles} from "./styles"
 import {THEME} from "../../theme"

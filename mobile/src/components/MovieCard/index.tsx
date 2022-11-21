@@ -1,7 +1,7 @@
 import {Pressable, View, Image, Text, PressableProps} from "react-native"
 import moment from 'moment'
 
-import {IMovie} from "../Movies"
+import {IMovie} from "../../@types"
 import {THEMOVIEDB_BANNER_URL} from "../../config/themoviedb"
 
 import posterNotFound from '../../assets/poster-not-found.png'

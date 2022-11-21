@@ -1,6 +1,4 @@
-import {Actor, Producer} from '../@types'
-import {IMovie} from '../components/Movies'
-
+import {Actor, Producer, IMovie} from '../@types'
 import {THEMOVIEDB_BANNER_URL, THEMOVIEDB_CAST_PROFILE_URL} from '../config/themoviedb'
 
 export function getMovieBanner(movie: IMovie, isPoster: boolean = false) {

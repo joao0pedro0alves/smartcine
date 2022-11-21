@@ -1,23 +1,18 @@
-import {View, Text, TouchableOpacity} from "react-native"
+import {View, Text} from "react-native"
 import * as Linking from 'expo-linking'
-import {AntDesign} from '@expo/vector-icons'
-
-import LogoTMDBSvg from '../../assets/themoviedb.svg'
-import LogoSvg from '../../assets/smartcine.svg'
 
 import {styles} from './styles'
-import {THEME} from "../../theme"
 
 export function Footer() {
 
-    async function handleNavigate(link: string) {
-        try {
-            await Linking.openURL(link)
+    // async function handleNavigate(link: string) {
+    //     try {
+    //         await Linking.openURL(link)
             
-        } catch (error) {
-            throw error
-        }
-    }
+    //     } catch (error) {
+    //         throw error
+    //     }
+    // }
 
     return (
         <View style={styles.container}>
@@ -26,7 +21,7 @@ export function Footer() {
                 themoviedb.org.
             </Text>
 
-            <View style={styles.credits}>
+            {/* <View style={styles.credits}>
                 <View style={styles.credit}>
                     <LogoSvg style={styles.logoSvg} />
                 </View>
@@ -57,7 +52,7 @@ export function Footer() {
                         />
                     </TouchableOpacity>
                 </View>
-            </View>
+            </View> */}
         </View>
     )
 }

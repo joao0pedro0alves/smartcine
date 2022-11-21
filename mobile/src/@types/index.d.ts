@@ -42,3 +42,28 @@ export interface ICredits {
     cast: Actor[]
     crew: Producer[]
 }
+
+export interface Genre {
+    id: number
+    name: string
+}
+export interface IMovie {
+    id: string
+    name?: string
+    title: string
+    original_title: string
+    original_language: string
+    adult: boolean
+
+    poster_path: string
+    backdrop_path: string
+
+    release_date: string
+    vote_average: number
+    vote_count: number
+    overview: string
+
+    runtime?: number
+    genres?: Genre[]
+    media_type?: string
+}

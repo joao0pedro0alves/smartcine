@@ -3,8 +3,8 @@ import {FlatList, View, Text, Image, TouchableOpacity} from "react-native"
 import Toast from "react-native-toast-message"
 
 import {api} from "../../services/api"
+import {getMovieCastPicture} from "../../utils/getMovieBanner"
 import {Actor, ICredits} from "../../@types"
-import {THEMOVIEDB_CAST_PROFILE_URL} from "../../config/themoviedb"
 
 import {styles} from "./styles"
 
@@ -60,7 +60,7 @@ export function Credits({movieId, onPressActor}: CreditsProps) {
                                 resizeMode="cover"
                                 style={styles.avatar}
                                 source={{
-                                    uri: THEMOVIEDB_CAST_PROFILE_URL + item.profile_path
+                                    uri: getMovieCastPicture(item)
                                 }}
                             />
 

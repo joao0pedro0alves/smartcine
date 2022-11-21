@@ -5,7 +5,7 @@ import {useRoute} from "@react-navigation/native"
 import Toast from "react-native-toast-message"
 import moment from "moment"
 
-import {Actor} from "../../@types"
+import {Actor, IMovie} from "../../@types"
 import {PersonDetailParams} from "../../@types/navigation"
 import {api} from "../../services/api"
 import {getMovieCastPicture} from "../../utils/getMovieBanner"
@@ -15,7 +15,7 @@ import {MovieHeader} from "../../components/MovieHeader"
 import {LoaderContainer} from "../../components/LoaderContainer"
 import {Rating} from "../../components/Rating"
 import {Summary} from "../../components/Summary"
-import Movies, {IMovie} from "../../components/Movies"
+import Movies from "../../components/Movies"
 
 import {styles} from "./styles"
 

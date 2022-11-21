@@ -1,13 +1,11 @@
 import {useState, useEffect} from "react"
 import {FlatList, View} from "react-native"
-import {SafeAreaView} from "react-native-safe-area-context"
 import {useNavigation, useRoute} from "@react-navigation/native"
 import Toast from "react-native-toast-message"
 
-import api from "../../services/api"
+import {IMovie} from "../../@types"
+import {api} from "../../services/api"
 import {MovieSearchParams} from "../../@types/navigation"
-import {THEMOVIEDB_CONFIG} from "../../config/themoviedb"
-import {IMovie} from "../../components/Movies"
 import {uniqueArray} from "../../utils/uniqueArray"
 
 import {Background} from "../../components/Background"

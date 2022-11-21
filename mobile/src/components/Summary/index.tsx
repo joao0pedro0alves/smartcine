@@ -3,10 +3,10 @@ import {Ionicons, AntDesign, Feather} from "@expo/vector-icons"
 import {useNavigation} from "@react-navigation/native"
 import moment from "moment"
 
+import {IMovie} from "../../@types"
 import {THEMOVIEDB_BANNER_URL} from "../../config/themoviedb"
 import {useFavoriteMovies} from "../../hooks/useFavoriteMovies"
 import {getAverageColor} from '../../utils/getAverageColor'
-import {IMovie} from "../Movies"
 
 import {styles} from "./styles"
 import {THEME} from "../../theme"

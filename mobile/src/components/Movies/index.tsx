@@ -1,46 +1,34 @@
 import {useState, useEffect, memo} from "react"
-import {FlatList, View, ViewProps, Image, Text, Animated, Easing, TouchableOpacity} from "react-native"
+import {
+    FlatList,
+    View,
+    ViewProps,
+    Image,
+    Text,
+    Animated,
+    Easing,
+    TouchableOpacity,
+    ImageBackground,
+} from "react-native"
 import {useNavigation} from "@react-navigation/native"
 import {LinearGradient} from "expo-linear-gradient"
-import {Entypo} from '@expo/vector-icons'
-import Toast from 'react-native-toast-message'
+import {Entypo} from "@expo/vector-icons"
+import {Shadow} from "react-native-shadow-2"
+import Toast from "react-native-toast-message"
 
+import {IMovie} from "../../@types"
 import {api} from "../../services/api"
-import {THEMOVIEDB_BANNER_URL} from "../../config/themoviedb"
+import {getMovieBanner} from "../../utils/getMovieBanner"
 
 import {THEME} from "../../theme"
 import {styles} from "./styles"
-
-export interface Genre {
-    id: number
-    name: string
-}
-export interface IMovie {
-    id: string
-    name?: string
-    title: string
-    original_title: string
-    original_language: string
-    adult: boolean
-
-    poster_path: string
-    backdrop_path: string
-
-    release_date: string
-    vote_average: number
-    vote_count: number
-    overview: string
-
-    runtime?: number
-    genres?: Genre[]
-    media_type?: string
-}
 
 export interface MoviesProps extends ViewProps {
     title?: string
     url?: string
     data?: IMovie[]
     showSeeAll?: boolean
+    isLarge?: boolean
 
     onPressMovie?: (movie: IMovie) => void
     onLoadMovies?: (movies: IMovie[]) => void
@@ -53,6 +41,7 @@ export function Movies({
     url,
     data: externalData,
     showSeeAll = true,
+    isLarge = false,
     onPressMovie,
     onLoadMovies,
     ...props
@@ -108,9 +97,9 @@ export function Movies({
     }, [url])
 
     function handleSeeAll() {
-        navigate('search', {
+        navigate("search", {
             title,
-            url
+            url,
         })
     }
 
@@ -120,7 +109,10 @@ export function Movies({
                 <Text style={styles.title}>{title}</Text>
 
                 {showSeeAll && (
-                    <TouchableOpacity style={styles.control} onPress={handleSeeAll}>
+                    <TouchableOpacity
+                        style={styles.control}
+                        onPress={handleSeeAll}
+                    >
                         <Text style={styles.seeAll}>Ver todos</Text>
                         <Entypo
                             name="chevron-small-right"
@@ -140,7 +132,7 @@ export function Movies({
                         renderItem={() => (
                             <AnimatedLG
                                 style={[
-                                    styles.cover,
+                                    styles.poster,
                                     {transform: [{translateX}]},
                                 ]}
                                 colors={[
@@ -161,14 +153,51 @@ export function Movies({
                         data={externalData || data}
                         keyExtractor={(item) => item.id}
                         renderItem={({item}) => (
-                            <TouchableOpacity activeOpacity={0.8} onPress={() => onPressMovie ? onPressMovie(item) : undefined}>
-                                <Image
-                                    resizeMode="cover"
-                                    style={styles.cover}
-                                    source={{
-                                        uri: `${THEMOVIEDB_BANNER_URL}/${item.poster_path}`,
-                                    }}
-                                />
+                            <TouchableOpacity
+                                activeOpacity={1}
+                                onPress={() =>
+                                    onPressMovie
+                                        ? onPressMovie(item)
+                                        : undefined
+                                }
+                            >
+                                {isLarge ? (
+
+                                    <ImageBackground
+                                        resizeMode="cover"
+                                        style={styles.backdrop}
+                                        source={{
+                                            uri: getMovieBanner(item),
+                                        }}
+                                    >
+                                        <Shadow>
+                                            <Image
+                                                resizeMode="cover"
+                                                style={[styles.poster, styles.posterSmall]}
+                                                source={{
+                                                    uri: getMovieBanner(item, true),
+                                                }}
+                                            />
+                                        </Shadow>
+                                        
+                                        {item.overview && (
+                                            <View style={styles.overviewContainer}>
+                                                <Text style={styles.overview} numberOfLines={5}>
+                                                    {item.overview}
+                                                </Text>
+                                            </View>
+                                        )}
+                                    </ImageBackground>
+
+                                ) : (
+                                    <Image
+                                        resizeMode="cover"
+                                        style={styles.poster}
+                                        source={{
+                                            uri: getMovieBanner(item, true),
+                                        }}
+                                    />
+                                )}
                             </TouchableOpacity>
                         )}
                     />

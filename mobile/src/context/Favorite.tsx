@@ -1,5 +1,6 @@
 import React, {createContext, useCallback} from "react"
-import {IMovie} from "../components/Movies"
+
+import {IMovie} from "../@types"
 import {FAVORITE_MOVIES_KEY} from "../constants/storageKeys"
 
 import {usePersistedState} from "../hooks/usePersistedState"
