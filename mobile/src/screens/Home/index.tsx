@@ -87,6 +87,7 @@ export function Home() {
                 url="movie/popular"
                 onPressMovie={setSelectedMovie}
                 onLoadMovies={(movies) => setBannerMovie(sample(movies))}
+                isLarge
             />
             <Movies
                 title="Agora nos cinemas"

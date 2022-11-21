@@ -29,7 +29,7 @@ const DEFAULT_THEME = {
 
         FOOTER: ["rgba(0,0,0,0)", "rgba(0,0,0,0.9)"],
         WHITE_OVERLAY: "rgba(255, 255, 255, 0.45)",
-        OVERLAY: "rgba(0,0,0,0.25)",
+        OVERLAY: "rgba(0,0,0,0.7)",
 
         CUSTOM: {
             RATING_STAR: '#FFE234'
