@@ -41,7 +41,7 @@ export function Home() {
     }
 
     return (
-        <Background>
+        <Background showFooter>
             <MovieHeader movie={bannerMovie} isPoster>
                 <Text style={styles.title}>{bannerMovie?.title}</Text>
 
