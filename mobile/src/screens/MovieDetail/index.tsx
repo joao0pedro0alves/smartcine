@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react"
+import {useState, useEffect, useMemo} from "react"
 import {View, Text, TouchableOpacity} from "react-native"
 import {Entypo} from '@expo/vector-icons'
 import {useRoute, useNavigation} from "@react-navigation/native"
@@ -17,12 +17,14 @@ import {LoaderContainer} from "../../components/LoaderContainer"
 import {Rating} from "../../components/Rating"
 import {Reviews} from "../../components/Reviews"
 import {Credits} from "../../components/Credits"
+import {Summary} from "../../components/Summary"
 
 import {styles} from "./styles"
 import {THEME} from "../../theme"
 
 export function MovieDetail() {
     const [movie, setMovie] = useState<IMovie | null>(null)
+    const [selectedMovie, setSelectedMovie] = useState<IMovie | null>(null)
     const [loading, setLoading] = useState(true)
 
     const route = useRoute()
@@ -57,15 +59,8 @@ export function MovieDetail() {
         fetchMovie()
     }, [movieId])
 
-    const handleShowMovie = (movie: IMovie) =>
-        navigate("movieDetail", {
-            movieId: movie.id,
-            title: movie.title,
-        })
-
-
-    return (
-        <Background>
+    const displayHeader = useMemo(() => {
+        return (
             <MovieHeader movie={movie} showBackButton showFavoriteButton>
                 <View style={styles.playContainer}>
                     <TouchableOpacity
@@ -85,32 +80,38 @@ export function MovieDetail() {
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}>{movie?.title}</Text>
+                {movie && (
+                    <View style={styles.header}>
+                        <Text style={styles.headerTitle}>{movie?.title}</Text>
 
-                    <Rating
-                        value={movie?.vote_average}
-                        evaluationsCount={movie?.vote_count}
-                    />
+                        <Rating
+                            value={movie?.vote_average}
+                            evaluationsCount={movie?.vote_count}
+                        />
 
-                    <View style={styles.headerMovieDetails}>
-                        <Text style={styles.headerMovieDetail}>
-                            {moment(movie?.release_date).format("YYYY")}
-                        </Text>
-                        <Text style={styles.headerMovieDetail}>
-                            {convertMinutesToHourString(movie?.runtime)}
-                        </Text>
-                        <Text
-                            numberOfLines={1}
-                            style={[styles.headerMovieDetail, styles.genders]}
-                        >
-                            {movie?.genres
-                                ?.map((genre) => genre.name)
-                                .join(", ")}
-                        </Text>
+                        <View style={styles.headerMovieDetails}>
+                            <Text style={styles.headerMovieDetail}>
+                                {moment(movie?.release_date).format("YYYY")}
+                            </Text>
+                            <Text style={styles.headerMovieDetail}>
+                                {convertMinutesToHourString(movie?.runtime)}
+                            </Text>
+                            <Text
+                                numberOfLines={1}
+                                style={[styles.headerMovieDetail, styles.genders]}
+                            >
+                                {movie.genres?.map((genre) => genre.name).join(", ")}
+                            </Text>
+                        </View>
                     </View>
-                </View>
+                )}
             </MovieHeader>
+        )
+    }, [movie])
+
+    return (
+        <Background>
+            {displayHeader}
 
             <LoaderContainer isLoading={loading} style={styles.container}>
                 <Text style={styles.title}>Sinopse</Text>
@@ -132,18 +133,24 @@ export function MovieDetail() {
                     showSeeAll={false}
                     title="Filmes similares"
                     url={`movie/${movieId}/similar`}
-                    onPressMovie={handleShowMovie}
+                    onPressMovie={setSelectedMovie}
                 />
 
                 <Movies
                     showSeeAll={false}
                     title="Recomendados"
                     url={`movie/${movieId}/recommendations`}
-                    onPressMovie={handleShowMovie}
+                    onPressMovie={setSelectedMovie}
                 />
 
                 <Reviews movieId={movieId} />
             </LoaderContainer>
+
+            <Summary
+                current={selectedMovie}
+                visible={!!selectedMovie}
+                onRequestClose={() => setSelectedMovie(null)}
+            />
         </Background>
     )
 }

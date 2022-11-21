@@ -93,7 +93,7 @@ export function Summary({current, onRequestClose, ...props}: SummaryProps) {
                     </View>
 
                     <View style={styles.controls}>
-                        <TouchableOpacity disabled={!isMovie} style={styles.control} onPress={handleShowMovieDetail}>
+                        <TouchableOpacity activeOpacity={0.8} disabled={!isMovie} style={styles.control} onPress={handleShowMovieDetail}>
                             <View style={styles.controlIcon}>
                                 <Feather
                                     name="info"
@@ -104,7 +104,7 @@ export function Summary({current, onRequestClose, ...props}: SummaryProps) {
                             <Text style={styles.controlText}>Saiba mais</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity disabled={!isMovie} style={styles.control} onPress={handleAddMovie}>
+                        <TouchableOpacity activeOpacity={0.8} disabled={!isMovie} style={styles.control} onPress={handleAddMovie}>
                             <View style={styles.controlIcon}>
                                 <AntDesign
                                     name="plus"
@@ -115,7 +115,7 @@ export function Summary({current, onRequestClose, ...props}: SummaryProps) {
                             <Text style={styles.controlText}>Minha lista</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity disabled={!isMovie} style={styles.control} onPress={handleShowMovieTrailer}>
+                        <TouchableOpacity activeOpacity={0.8} disabled={!isMovie} style={styles.control} onPress={handleShowMovieTrailer}>
                             <View
                                 style={[
                                     styles.controlIcon,
