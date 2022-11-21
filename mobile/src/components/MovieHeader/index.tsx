@@ -3,13 +3,13 @@ import {LinearGradient} from "expo-linear-gradient"
 import {MaterialIcons} from "@expo/vector-icons"
 import {useNavigation} from "@react-navigation/native"
 
+import {IMovie} from "../../@types"
 import {THEMOVIEDB_BANNER_URL} from "../../config/themoviedb"
 import {useFavoriteMovies} from "../../hooks/useFavoriteMovies"
 import {useIsFavorite} from "../../hooks/useIsFavorite"
 
 import {THEME} from "../../theme"
 import {styles} from "./styles"
-import {IMovie} from "../Movies"
 
 interface MovieHeaderProps {
     children?: React.ReactNode

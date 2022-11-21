@@ -3,6 +3,7 @@ import {Text, View, TouchableOpacity} from "react-native"
 import {Entypo, AntDesign, Feather} from "@expo/vector-icons"
 import {useNavigation} from "@react-navigation/native"
 
+import {IMovie} from "../../@types"
 import {sample} from "../../utils/sample"
 import {useFavoriteMovies} from "../../hooks/useFavoriteMovies"
 
@@ -11,7 +12,7 @@ import {Button} from "../../components/Button"
 import {Background} from "../../components/Background"
 import {FavoriteMovies} from "../../components/FavoriteMovies"
 import {Summary} from "../../components/Summary"
-import Movies, {IMovie} from "../../components/Movies"
+import Movies from "../../components/Movies"
 
 import {THEME} from "../../theme"
 import {styles} from "./styles"

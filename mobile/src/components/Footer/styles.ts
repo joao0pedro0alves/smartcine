@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         padding: 14,
         paddingBottom: 74,
-        backgroundColor: THEME.COLORS.BACKGROUND_900,
+        backgroundColor: THEME.COLORS.BACKGROUND,
     },
     copyText: {
         color: THEME.COLORS.CAPTION_400,

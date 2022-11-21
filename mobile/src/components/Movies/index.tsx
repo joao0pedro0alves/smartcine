@@ -5,36 +5,12 @@ import {LinearGradient} from "expo-linear-gradient"
 import {Entypo} from '@expo/vector-icons'
 import Toast from 'react-native-toast-message'
 
+import {IMovie} from "../../@types"
 import {api} from "../../services/api"
 import {THEMOVIEDB_BANNER_URL} from "../../config/themoviedb"
 
 import {THEME} from "../../theme"
 import {styles} from "./styles"
-
-export interface Genre {
-    id: number
-    name: string
-}
-export interface IMovie {
-    id: string
-    name?: string
-    title: string
-    original_title: string
-    original_language: string
-    adult: boolean
-
-    poster_path: string
-    backdrop_path: string
-
-    release_date: string
-    vote_average: number
-    vote_count: number
-    overview: string
-
-    runtime?: number
-    genres?: Genre[]
-    media_type?: string
-}
 
 export interface MoviesProps extends ViewProps {
     title?: string
@@ -161,7 +137,10 @@ export function Movies({
                         data={externalData || data}
                         keyExtractor={(item) => item.id}
                         renderItem={({item}) => (
-                            <TouchableOpacity activeOpacity={0.8} onPress={() => onPressMovie ? onPressMovie(item) : undefined}>
+                            <TouchableOpacity 
+                                activeOpacity={0.8} 
+                                onPress={() => onPressMovie ? onPressMovie(item) : undefined}
+                            >
                                 <Image
                                     resizeMode="cover"
                                     style={styles.cover}
