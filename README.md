@@ -8,7 +8,7 @@
 <p align="center">
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/joao0pedro0alves/smartcine?color=#F7DD43">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/joao0pedro0alves/nlw-copa">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/joao0pedro0alves/smartcine">
   
   <a href="https://github.com/joao0pedro0alves/smartcine/commits/master">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/joao0pedro0alves/smartcine">
