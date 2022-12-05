@@ -15,7 +15,7 @@ interface MovieHeaderProps {
     showBackgroundVideo?: boolean
 }
 
-export function MovieHeader({movie, isPoster, children, showBackgroundVideo = true}: MovieHeaderProps) {
+export function MovieHeader({movie, isPoster, children, showBackgroundVideo = false}: MovieHeaderProps) {
     const [videoKey, setVideoKey] = useState('')
 
     async function fetchMovieVideos() {
