@@ -10,9 +10,12 @@ import {apiEndPoints} from '../../constants/apiEndPoints'
 import {Container} from '../../components/Container'
 import {MovieHeader} from '../../components/MovieHeader'
 import {MoviePoster} from '../../components/MoviePoster'
+import {MovieDetail} from '../../components/MovieDetail'
 import Movies from '../../components/Movies'
 
 export default function Detail() {
+    const [selectedMovie, setSelectedMovie] = useState<IMovie>({} as IMovie)
+
     const [movie, setMovie] = useState<IMovie>({} as IMovie)
     const [_, setLoading] = useState(true)
 
@@ -87,15 +90,21 @@ export default function Detail() {
                     <Movies
                         title="Filmes similares"
                         url={apiEndPoints.movie.similar(movieId)}
-                        onPressMovie={console.log}
+                        onPressMovie={setSelectedMovie}
                     />
                     <Movies
                         title="Recomendados para você"
                         url={apiEndPoints.movie.recommendations(movieId)}
-                        onPressMovie={console.log}
+                        onPressMovie={setSelectedMovie}
                     />
                 </div>
             )}
+
+            <MovieDetail
+                movie={selectedMovie}
+                show={Boolean(selectedMovie.id)}
+                onClose={() => setSelectedMovie({} as IMovie)}
+            />
         </Container>
     )
 }

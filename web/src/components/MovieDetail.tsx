@@ -28,7 +28,7 @@ export function MovieDetail({movie, show, onClose}: MovieDetailProps) {
                                 height={300}
                                 alt={`Poster do filme ${movie.title}`}
                                 src={getMovieBanner(movie, true)}
-                                className="shadow-xl min-w-[200px] min-h-[300px]"
+                                className="shadow-xl min-w-[200px] min-h-[300px] hover:cursor-pointer scale-100"
                             />
 
                             <button className='w-full mt-4 max-w-[200px] flex gap-2 items-center justify-center h-12 p-2 rounded-md bg-zinc-500 hover:bg-zinc-600'>
@@ -58,8 +58,6 @@ export function MovieDetail({movie, show, onClose}: MovieDetailProps) {
 
                             <span className="block mt-2 text-zinc-400">
                                 {moment(movie?.release_date).format('DD/MM/YYYY')}
-                                {' | '}
-                                {parseFloat(String(movie?.vote_average)).toFixed(1)}
                                 {' | '}
                                 {movie?.vote_count} Avaliações
                             </span>
