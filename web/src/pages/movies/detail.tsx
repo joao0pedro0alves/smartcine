@@ -3,14 +3,14 @@ import {useState, useEffect, useCallback} from 'react'
 import {useRouter} from 'next/router'
 import moment from 'moment'
 
-import {IMovie} from '../@types'
-import {api} from '../services/api'
-import {apiEndPoints} from '../constants/apiEndPoints'
+import {IMovie} from '../../@types'
+import {api} from '../../services/api'
+import {apiEndPoints} from '../../constants/apiEndPoints'
 
-import {Container} from '../components/Container'
-import {MovieHeader} from '../components/MovieHeader'
-import {MoviePoster} from '../components/MoviePoster'
-import Movies from '../components/Movies'
+import {Container} from '../../components/Container'
+import {MovieHeader} from '../../components/MovieHeader'
+import {MoviePoster} from '../../components/MoviePoster'
+import Movies from '../../components/Movies'
 
 export default function Detail() {
     const [movie, setMovie] = useState<IMovie>({} as IMovie)
