@@ -11,9 +11,10 @@ import {Image} from './helper/Image'
 
 interface CreditsProps {
     movieId: string
+    take?: 'all' | number
 }
 
-export function Credits({movieId}: CreditsProps) {
+export function Credits({movieId, take = 4}: CreditsProps) {
     const [credits, setCredits] = useState<ICredits>({} as ICredits)
     const [loading, setIsLoading] = useState(true)
 
@@ -21,11 +22,9 @@ export function Credits({movieId}: CreditsProps) {
         try {
             const response = await api.get(apiEndPoints.movie.credits(movieId))
             setCredits(response.data)
-
         } catch (error) {
             console.log(error)
             throw error
-
         } finally {
             setIsLoading(false)
         }
@@ -35,27 +34,29 @@ export function Credits({movieId}: CreditsProps) {
         fetchCredits()
     }, [movieId])
 
-    const director = credits.crew?.find(producer => producer.job === 'Director')
-    const writer = credits.crew?.find(producer => producer.job === 'Writer')
+    const director = credits.crew?.find(
+        (producer) => producer.job === 'Director'
+    )
+    const writer = credits.crew?.find((producer) => producer.job === 'Writer')
 
     return (
         <section>
-
-            <div className='mt-4'>
-                <div className='flex justify-between'>
-                    <span className='text-white text-lg font-bold mb-2 block'>Elenco</span>
+            <div className="mt-4">
+                <div className="flex justify-between">
+                    <span className="text-white text-lg font-bold mb-2 block">
+                        Elenco
+                    </span>
                 </div>
 
                 {loading ? (
-                    <ListSkeleton
-                        amount={4}
-                        height={150}
-                        width={112}
-                    />
+                    <ListSkeleton amount={4} height={150} width={112} />
                 ) : (
-                    <div className='flex gap-2'>
-                        {first(credits.cast, 4).map((actor) => (
-                            <div key={actor.id} className='bg-gray-800 rounded overflow-hidden w-[112px]'>
+                    <div className="flex gap-2">
+                        {first(credits.cast, take === 'all' ? credits.cast.length : take).map((actor) => (
+                            <div
+                                key={actor.id}
+                                className="bg-gray-800 rounded overflow-hidden w-[112px]"
+                            >
                                 <Image
                                     key={actor.id}
                                     alt={`Foto ator ${actor.original_name}`}
@@ -64,11 +65,11 @@ export function Credits({movieId}: CreditsProps) {
                                     width={112}
                                 />
 
-                                <div className='p-2'>
-                                    <span className='text-white font-bold block whitespace-nowrap overflow-hidden overflow-ellipsis'>
+                                <div className="p-2">
+                                    <span className="text-white font-bold block whitespace-nowrap overflow-hidden overflow-ellipsis">
                                         {actor.character}
                                     </span>
-                                    <span className='text-zinc-300 block text-sm whitespace-nowrap overflow-hidden overflow-ellipsis'>
+                                    <span className="text-zinc-300 block text-sm whitespace-nowrap overflow-hidden overflow-ellipsis">
                                         {actor.original_name}
                                     </span>
                                 </div>
@@ -78,18 +79,23 @@ export function Credits({movieId}: CreditsProps) {
                 )}
             </div>
 
-            <div className='flex gap-8 mt-4'>
+            <div className="flex gap-8 mt-4">
                 <div>
-                    <span className='text-white font-bold block'>Direção</span>
-                    <span className='text-zinc-300 block mb-1'>{director?.name}</span>
+                    <span className="text-white font-bold block">Direção</span>
+                    <span className="text-zinc-300 block mb-1">
+                        {director?.name}
+                    </span>
                 </div>
 
                 <div>
-                    <span className='text-white font-bold block'>Roteiro por:</span>
-                    <span className='text-zinc-300 block mb-1'>{writer?.name}</span>
+                    <span className="text-white font-bold block">
+                        Roteiro por:
+                    </span>
+                    <span className="text-zinc-300 block mb-1">
+                        {writer?.name}
+                    </span>
                 </div>
             </div>
-
         </section>
     )
 }

@@ -6,29 +6,29 @@ import moment from 'moment'
 import {IMovie} from '../@types'
 import {api} from '../services/api'
 import {apiEndPoints} from '../constants/apiEndPoints'
-import {getMovieBanner} from '../utils/getMovieBanner'
 
-import {Image} from '../components/helper/Image'
 import {Container} from '../components/Container'
 import {MovieHeader} from '../components/MovieHeader'
+import {MoviePoster} from '../components/MoviePoster'
+import Movies from '../components/Movies'
 
 export default function Detail() {
     const [movie, setMovie] = useState<IMovie>({} as IMovie)
+    const [_, setLoading] = useState(true)
 
     const router = useRouter()
-    const { movieId } = router.query
+    const movieId = router.query.movieId as string
 
     async function fetchMovie() {
         try {
             if (typeof movieId === 'string') {
-
                 const response = await api.get(apiEndPoints.movie.show(movieId))
                 setMovie(response.data)
             }
-            
         } catch (error) {
             console.log(error)
-            throw error
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -38,14 +38,19 @@ export default function Detail() {
 
     const displayHeader = useCallback(
         () => (
-            <MovieHeader movie={movie} showBackgroundVideo={false}>
+            <MovieHeader
+                movie={movie}
+                showBackgroundVideo={false}
+                screenOccupation={75}
+                className="border-b border-gray-600"
+            >
                 <div className="w-full py-0 flex flex-col items-center gap-16 md:flex-row sm:py-4">
-                    <Image
-                        width={400}
-                        height={600}
-                        alt={`Poster do filme ${movie.title}`}
-                        src={getMovieBanner(movie, true)}
-                        className="shadow-xl min-h-[400px] min-w-[400px]"
+                    <MoviePoster
+                        width={266}
+                        height={400}
+                        averageSize={60}
+                        movie={movie}
+                        className="shadow-xl min-w-[266px] min-h-[400px]"
                     />
 
                     <div className="py-8">
@@ -58,9 +63,9 @@ export default function Detail() {
                         </p>
 
                         <strong className="text-zinc-400">
-                            {moment(movie?.release_date).format('DD [de] MMMM [de] YYYY')}
-                            {' | '}
-                            {parseFloat(String(movie.vote_average)).toFixed(1)}
+                            {moment(movie?.release_date).format(
+                                'DD [de] MMMM [de] YYYY'
+                            )}
                             {' | '}
                             {movie?.vote_count} Avaliações
                         </strong>
@@ -76,7 +81,21 @@ export default function Detail() {
             <Head>
                 <title>{movie?.title}</title>
             </Head>
-            
+
+            {movieId && (
+                <div className="py-4">
+                    <Movies
+                        title="Filmes similares"
+                        url={apiEndPoints.movie.similar(movieId)}
+                        onPressMovie={console.log}
+                    />
+                    <Movies
+                        title="Recomendados para você"
+                        url={apiEndPoints.movie.recommendations(movieId)}
+                        onPressMovie={console.log}
+                    />
+                </div>
+            )}
         </Container>
     )
 }

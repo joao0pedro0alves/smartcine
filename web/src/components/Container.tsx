@@ -10,9 +10,9 @@ interface ContainerProps {
 
 export function Container({children, Header}: ContainerProps) {
     return (
-        <main>
+        <main className='flex flex-col min-h-screen'>
             {Header ? <Header /> : null}
-            <div className="container mx-auto">{children}</div>
+            <div className="p-4 container flex-1 mx-auto">{children}</div>
 
             <footer className="w-full bg-gray-800">
                 <div className="container mx-auto py-4 flex justify-between">
