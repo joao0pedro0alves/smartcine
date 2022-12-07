@@ -1,6 +1,6 @@
 import clsx from 'clsx'
-import { ButtonHTMLAttributes, ForwardRefExoticComponent } from 'react'
-import { Oval } from 'react-loader-spinner'
+import {ButtonHTMLAttributes, ForwardRefExoticComponent} from 'react'
+import {Oval} from 'react-loader-spinner'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     isLoading?: boolean
@@ -8,7 +8,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     as?: ForwardRefExoticComponent<any>
 }
 
-export const buttonClasses: ButtonProps['className'] = 'text-xs relative px-6 py-4 rounded font-bold md:h-12 md:text-sm uppercase'
+export const buttonClasses: ButtonProps['className'] =
+    'text-xs relative px-6 py-4 rounded font-bold md:h-12 md:text-sm uppercase'
 
 export function Button({
     className,
@@ -19,7 +20,7 @@ export function Button({
 }: ButtonProps) {
     const isSecondary = variant === 'secondary'
 
-    const Component = ({ ...props }) =>
+    const Component = ({...props}) =>
         AsComponent ? <AsComponent {...props} /> : <button {...props} />
 
     return (
@@ -31,11 +32,11 @@ export function Button({
                     ? 'text-white border border-gray-700 bg-gray-900 hover:bg-gray-800'
                     : 'text-gray-900 bg-blue-500 hover:bg-blue-700',
                 isLoading ? 'opacity-80 pointer-events-none' : '',
-                className,
+                className
             )}
         >
             {props.children}
-            
+
             <Oval
                 height={24}
                 width={24}

@@ -20,7 +20,7 @@ export function Navbar() {
     return (
         <nav
             className={clsx(
-                'border-b fixed w-full z-30 px-2 sm:px-4 py-4 transition-all',
+                'border-b fixed w-full z-30 px-2 sm:px-4 py-4 transition-all hidden lg:block',
                 {
                     'bg-transparent border-transparent': !trigger,
                     'bg-black/80 border-gray-600': trigger,
