@@ -6,7 +6,10 @@ import {
 import {useScrollTrigger} from '@mui/material'
 import clsx from 'clsx'
 
+import smartcine from '../assets/logo-smartcine.svg'
+
 import {TextField} from '../components/form/'
+import Image from 'next/image'
 
 export function Navbar() {
     const trigger = useScrollTrigger({
@@ -26,10 +29,12 @@ export function Navbar() {
         >
             <div className="container flex flex-wrap items-center justify-between mx-auto">
                 <Link href="/" className="flex items-center">
-                    <img
-                        src="./logo-smartcine.svg"
+                    <Image
+                        src={smartcine}
                         className="w-full mr-3 sm:h-9"
                         alt="SmartCine Logo"
+                        width={40}
+                        height={40}
                     />
                     <span className="self-center text-2xl font-serif font-bold whitespace-nowrap text-white">
                         SmartCine
