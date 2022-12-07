@@ -82,6 +82,12 @@ export default function Home({bannerMovie}: HomeProps) {
                     url={apiEndPoints.movie.topRated}
                     onPressMovie={setSelectedMovie}
                 />
+                <Movies
+                    title="Minha lista"
+                    // url={apiEndPoints.movie.topRated}
+                    data={[]}
+                    onPressMovie={setSelectedMovie}
+                />
             </div>
 
             <MovieDetail
