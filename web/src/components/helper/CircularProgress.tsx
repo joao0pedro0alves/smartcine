@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import {
     CircularProgress as MuiCircularProgress,
     CircularProgressProps,
@@ -13,7 +14,7 @@ export function CircularProgress({className, labelValue, ...props}: Props) {
         <div className="relative">
             <MuiCircularProgress
                 variant="determinate"
-                className="text-gray-600"
+                className="text-gray-600 z-10"
                 thickness={5}
                 {...props}
                 value={100}
@@ -31,11 +32,11 @@ export function CircularProgress({className, labelValue, ...props}: Props) {
                         strokeLinecap: 'round',
                     },
                 }}
-                className={className}
+                className={clsx(className, 'z-10')}
                 {...props}
             />
 
-            <div className="inset-0 absolute flex items-center justify-center">
+            <div className="inset-0 absolute flex items-center justify-center z-10">
                 <span className="text-gray-100 font-bold text-md">
                     {labelValue}%
                 </span>
