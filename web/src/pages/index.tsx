@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import {useState, useCallback} from 'react'
 import moment from 'moment'
 
@@ -61,6 +62,10 @@ export default function Home({bannerMovie}: HomeProps) {
 
     return (
         <Container Header={displayHeader}>
+            <Head>
+                <title>SmartCine</title>
+            </Head>
+            
             <div className="py-4">
                 <Movies
                     title="Em alta"
@@ -94,6 +99,7 @@ export default function Home({bannerMovie}: HomeProps) {
                 movie={selectedMovie}
                 show={Boolean(selectedMovie.id)}
                 onClose={() => setSelectedMovie({} as IMovie)}
+                pathname='/movies/detail'
             />
         </Container>
     )
