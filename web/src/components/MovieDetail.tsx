@@ -12,9 +12,10 @@ interface MovieDetailProps {
     movie: IMovie
     show: boolean
     onClose: () => void
+    pathname: string
 }
 
-export function MovieDetail({movie, show, onClose}: MovieDetailProps) {
+export function MovieDetail({movie, show, pathname, onClose}: MovieDetailProps) {
     return (
         <Dialog.Root open={show}>
             <Dialog.Portal>
@@ -28,7 +29,7 @@ export function MovieDetail({movie, show, onClose}: MovieDetailProps) {
                                 height={300}
                                 alt={`Poster do filme ${movie.title}`}
                                 src={getMovieBanner(movie, true)}
-                                className="shadow-xl min-w-[200px] min-h-[300px]"
+                                className="shadow-xl min-w-[200px] min-h-[300px] hover:cursor-pointer scale-100"
                             />
 
                             <button className='w-full mt-4 max-w-[200px] flex gap-2 items-center justify-center h-12 p-2 rounded-md bg-zinc-500 hover:bg-zinc-600'>
@@ -37,7 +38,7 @@ export function MovieDetail({movie, show, onClose}: MovieDetailProps) {
                             </button>
 
                             <div className='mt-4 flex gap-4 justify-between max-w-[200px]'>
-                                <Link href={{pathname: '/detail', query: {movieId: movie.id}}} className='flex flex-col items-center hover:opacity-80 transition-opacity'>
+                                <Link onClick={onClose} href={{pathname, query: {movieId: movie.id}}} className='flex flex-col items-center hover:opacity-80 transition-opacity'>
                                     <Info size={25} className='text-zinc-100'/>
                                     <span className='block mt-1 text-sm'>Saiba mais</span>
                                 </Link>
@@ -57,14 +58,12 @@ export function MovieDetail({movie, show, onClose}: MovieDetailProps) {
                             </Dialog.Title>
 
                             <span className="block mt-2 text-zinc-400">
-                                {moment(movie?.release_date).format('DD/MM/YYYY')}
-                                {' | '}
-                                {parseFloat(String(movie?.vote_average)).toFixed(1)}
+                                {movie?.release_date ? moment(movie?.release_date).format('DD/MM/YYYY') : 'Data não informada'}
                                 {' | '}
                                 {movie?.vote_count} Avaliações
                             </span>
 
-                            <p className='mt-2 text-md text-zinc-300'>
+                            <p className='mt-2 text-md text-zinc-300 max-h-[300px] overflow-auto apply-thin-scrollbar'>
                                 {movie.overview}
                             </p>
                         </div>

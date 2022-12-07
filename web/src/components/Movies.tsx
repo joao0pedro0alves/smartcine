@@ -53,7 +53,6 @@ export function Movies({title, url, showSeeAll = true, onPressMovie}: MoviesProp
                         className="flex items-center gap-2 text-zinc-300 hover:underline"
                     >
                         <span className="text-sm">Ver mais</span>
-
                         <CaretRight size={14} />
                     </Link>
                 )}
@@ -72,7 +71,7 @@ export function Movies({title, url, showSeeAll = true, onPressMovie}: MoviesProp
                         keyExtractor={(item) => item.id}
                         renderItem={({item}) => (
                             <button 
-                                className='hover:opacity-80 transition-opacity' 
+                                className='hover:opacity-80 transition-opacity'
                                 onClick={onPressMovie ? () => onPressMovie(item) : undefined}
                             >
                                 <Image

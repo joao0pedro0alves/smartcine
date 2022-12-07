@@ -2,6 +2,14 @@ export interface Genre {
     id: number
     name: string
 }
+
+export interface MovieCollection {
+    id: number
+    name: string
+    backdrop_path: string
+    poster_path: string
+}
+
 export interface IMovie {
     id: string
     title: string
@@ -12,8 +20,10 @@ export interface IMovie {
     vote_count: number
     overview: string
 
+    tagline?: string
     runtime?: number
     genres?: Genre[]
+    belongs_to_collection?: MovieCollection
 }
 
 export interface Actor {

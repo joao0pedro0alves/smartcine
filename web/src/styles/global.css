@@ -7,7 +7,11 @@ body {
 }
 
 .content-linear-shadow {
-    @apply relative before:content-[''] before:bg-shadow-gradient before:min-h-screen before:z-10 before:absolute before:inset-0
+    @apply relative before:content-[''] before:bg-shadow-gradient before:min-h-full before:z-10 before:absolute before:inset-0
+}
+
+.apply-thin-scrollbar {
+  @apply scrollbar-thin scrollbar-track-transparent scrollbar-corner-rounded-full
 }
 
 @media (min-aspect-ratio: 16/9) {

@@ -1,4 +1,5 @@
-import {useState, useEffect} from 'react'
+import clsx from 'clsx'
+import {useState, useEffect, HTMLAttributes} from 'react'
 
 import {IMovie, IVideo} from '../@types'
 import {apiEndPoints} from '../constants/apiEndPoints'
@@ -13,9 +14,19 @@ interface MovieHeaderProps {
     showBackButton?: boolean
     showFavoriteButton?: boolean
     showBackgroundVideo?: boolean
+
+    className?: HTMLAttributes<HTMLDivElement>['className']
+    screenOccupation?: number
 }
 
-export function MovieHeader({movie, isPoster, children, showBackgroundVideo = false}: MovieHeaderProps) {
+export function MovieHeader({
+    movie,
+    isPoster,
+    children,
+    showBackgroundVideo = false,
+    className,
+    screenOccupation,
+}: MovieHeaderProps) {
     const [videoKey, setVideoKey] = useState('')
 
     async function fetchMovieVideos() {
@@ -42,10 +53,13 @@ export function MovieHeader({movie, isPoster, children, showBackgroundVideo = fa
         }
     }, [showBackgroundVideo, movie])
 
+    const minHeight = screenOccupation ? `${screenOccupation}vh` : '100vh'
+
     return (
         <div
-            className="bg-no-repeat bg-cover min-h-screen relative"
+            className={clsx('bg-no-repeat bg-cover bg-fixed relative', className)}
             style={{
+                minHeight,
                 backgroundImage: movie
                     ? `url('${getMovieBanner(movie, isPoster)}')`
                     : '',
@@ -63,7 +77,14 @@ export function MovieHeader({movie, isPoster, children, showBackgroundVideo = fa
                     />
                 )}
 
-                <div className="container mx-auto z-20 relative min-h-screen flex items-center">
+                <div
+                    className={clsx(
+                        'container mx-auto z-20 relative flex items-center px-4 py-8'
+                    )}
+                    style={{
+                        minHeight,
+                    }}
+                >
                     {children}
                 </div>
             </div>

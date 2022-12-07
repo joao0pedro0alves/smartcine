@@ -1,17 +1,17 @@
+import Head from 'next/head'
 import {useState, useCallback} from 'react'
 import moment from 'moment'
 
 import {IMovie} from '../@types'
 import {api} from '../services/api'
 import {apiEndPoints} from '../constants/apiEndPoints'
-import {getMovieBanner} from '../utils/getMovieBanner'
 import {sample} from '../utils/sample'
 
-import {Image} from '../components/helper/Image'
 import {Container} from '../components/Container'
-import {MovieHeader} from '../components/MovieHeader'
 import {Credits} from '../components/Credits'
+import {MovieHeader} from '../components/MovieHeader'
 import {MovieDetail} from '../components/MovieDetail'
+import {MoviePoster} from '../components/MoviePoster'
 import Movies from '../components/Movies'
 
 interface HomeProps {
@@ -25,12 +25,12 @@ export default function Home({bannerMovie}: HomeProps) {
         () => (
             <MovieHeader movie={bannerMovie}>
                 <div className="w-full py-0 flex flex-col items-center gap-16 md:flex-row sm:py-4">
-                    <Image
+                    <MoviePoster
                         width={400}
                         height={600}
-                        alt={`Poster do filme ${bannerMovie.title}`}
-                        src={getMovieBanner(bannerMovie, true)}
-                        className="shadow-xl min-h-[400px] min-w-[400px]"
+                        averageSize={60}
+                        movie={bannerMovie}
+                        className="shadow-xl min-w-[400px] min-h-[600px]"
                     />
 
                     <div className="py-8">
@@ -47,10 +47,6 @@ export default function Home({bannerMovie}: HomeProps) {
                                 'DD [de] MMMM [de] YYYY'
                             )}
                             {' | '}
-                            {parseFloat(
-                                String(bannerMovie.vote_average)
-                            ).toFixed(1)}
-                            {' | '}
                             {bannerMovie?.vote_count} Avaliações
                         </strong>
 
@@ -66,6 +62,10 @@ export default function Home({bannerMovie}: HomeProps) {
 
     return (
         <Container Header={displayHeader}>
+            <Head>
+                <title>SmartCine</title>
+            </Head>
+            
             <div className="py-4">
                 <Movies
                     title="Em alta"
@@ -87,12 +87,19 @@ export default function Home({bannerMovie}: HomeProps) {
                     url={apiEndPoints.movie.topRated}
                     onPressMovie={setSelectedMovie}
                 />
+                <Movies
+                    title="Minha lista"
+                    // url={apiEndPoints.movie.topRated}
+                    data={[]}
+                    onPressMovie={setSelectedMovie}
+                />
             </div>
 
             <MovieDetail
                 movie={selectedMovie}
                 show={Boolean(selectedMovie.id)}
                 onClose={() => setSelectedMovie({} as IMovie)}
+                pathname='/movies/detail'
             />
         </Container>
     )
