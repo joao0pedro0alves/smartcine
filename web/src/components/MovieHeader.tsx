@@ -79,7 +79,7 @@ export function MovieHeader({
 
                 <div
                     className={clsx(
-                        'container mx-auto z-20 relative flex items-center'
+                        'container mx-auto z-20 relative flex items-center px-4 py-8'
                     )}
                     style={{
                         minHeight,

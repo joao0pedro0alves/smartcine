@@ -32,7 +32,7 @@ export function MoviePoster({movie, averageSize, ...props}: MoviePosterProps) {
                         variant="determinate"
                         size={averageSize}
                         value={value}
-                        labelValue={Math.floor(value).toString()}
+                        labelValue={Math.round(value).toString()}
                     />
                 </div>
             </div>

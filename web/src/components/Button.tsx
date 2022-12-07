@@ -8,6 +8,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     as?: ForwardRefExoticComponent<any>
 }
 
+export const buttonClasses: ButtonProps['className'] = 'text-xs relative px-6 py-4 rounded font-bold md:h-12 md:text-sm uppercase'
+
 export function Button({
     className,
     variant = 'primary',
@@ -24,7 +26,7 @@ export function Button({
         <Component
             {...props}
             className={clsx(
-                'text-xs relative px-6 py-4 rounded font-bold md:h-12 md:text-sm uppercase',
+                buttonClasses,
                 isSecondary
                     ? 'text-white border border-gray-700 bg-gray-900 hover:bg-gray-800'
                     : 'text-gray-900 bg-blue-500 hover:bg-blue-700',

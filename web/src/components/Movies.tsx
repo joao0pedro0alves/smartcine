@@ -76,7 +76,7 @@ export function Movies({title, url, showSeeAll = true, onPressMovie}: MoviesProp
                                 onClick={onPressMovie ? () => onPressMovie(item) : undefined}
                             >
                                 <Image
-                                    className='rounded'
+                                    className='rounded min-h-[268px]'
                                     alt={`Poster filme ${item.title}`}
                                     src={getMovieBanner(item, true)}
                                     height={268}
