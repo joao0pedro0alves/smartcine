@@ -12,6 +12,7 @@ export interface IMovie {
     vote_count: number
     overview: string
 
+    tagline?: string
     runtime?: number
     genres?: Genre[]
 }
