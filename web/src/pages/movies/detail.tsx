@@ -13,23 +13,29 @@ import {convertMinutesToHourString} from '../../utils/convertMinutesToHourString
 
 import {buttonClasses} from '../../components/Button'
 import {Circle} from '../../components/helper/Circle'
+import {LoaderContainer} from '../../components/helper/LoaderContaner'
 import {Container} from '../../components/Container'
 import {MovieHeader} from '../../components/MovieHeader'
 import {MoviePoster} from '../../components/MoviePoster'
 import {MovieDetail} from '../../components/MovieDetail'
+import {MovieCollection} from '../../components/MovieCollection'
 import Movies from '../../components/Movies'
 
 export default function Detail() {
     const [selectedMovie, setSelectedMovie] = useState<IMovie>({} as IMovie)
 
     const [movie, setMovie] = useState<IMovie>({} as IMovie)
-    const [_, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true)
 
     const router = useRouter()
     const movieId = router.query.movieId as string
 
+    const releaseYear = movie?.release_date ? moment(movie?.release_date).format('YYYY') : ''
+
     async function fetchMovie() {
         try {
+            setLoading(true)
+
             if (typeof movieId === 'string') {
                 const response = await api.get(apiEndPoints.movie.show(movieId))
                 setMovie(response.data)
@@ -42,7 +48,9 @@ export default function Detail() {
     }
 
     useEffect(() => {
-        fetchMovie()
+        if (movieId) {
+            fetchMovie()
+        }
     }, [movieId])
 
     const displayHeader = useCallback(
@@ -63,11 +71,11 @@ export default function Detail() {
                             className="shadow-xl min-w-[266px] min-h-[400px]"
                         />
 
-                        <div className='absolute bg-black/40 -inset-0 z-1 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all'>
+                        <div className="absolute bg-black/40 -inset-0 z-1 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
                             <button
                                 className={clsx(
                                     buttonClasses,
-                                    "flex gap-2 items-center justify-center w-[220px] bg-white/80 z-2",
+                                    'flex gap-2 items-center justify-center w-[220px] bg-white/80 z-2'
                                 )}
                             >
                                 <PlayCircle size={18} weight="bold" />
@@ -78,12 +86,12 @@ export default function Detail() {
 
                     <div className="py-8">
                         <h1 className="text-white font-serif text-4xl font-black">
-                            {movie?.title} ({moment(movie?.release_date).format('YYYY')})
+                            {movie?.title} ({releaseYear})
                         </h1>
 
                         <div className="flex items-center gap-2 my-2 text-gray-200">
                             <span>
-                                {moment(movie?.release_date).format('DD/MM/YYYY')}
+                                {movie?.release_date ? moment(movie?.release_date).format('DD/MM/YYYY') : 'Data não informada'}
                             </span>
                             <Circle />
                             <div className="flex gap-2">
@@ -110,6 +118,12 @@ export default function Detail() {
                         <p className="text-gray-200 text-lg py-4">
                             {movie?.overview}
                         </p>
+
+                        {movie.belongs_to_collection && (
+                            <MovieCollection
+                                collection={movie.belongs_to_collection}
+                            />
+                        )}
                     </div>
                 </div>
             </MovieHeader>
@@ -120,28 +134,31 @@ export default function Detail() {
     return (
         <Container Header={displayHeader}>
             <Head>
-                <title>{movie?.title}</title>
+                <title>{movie?.title} ({releaseYear}) - Smartcine</title>
             </Head>
 
-            {movieId && (
-                <div className="py-4">
-                    <Movies
-                        title="Filmes similares"
-                        url={apiEndPoints.movie.similar(movieId)}
-                        onPressMovie={setSelectedMovie}
-                    />
-                    <Movies
-                        title="Recomendados para você"
-                        url={apiEndPoints.movie.recommendations(movieId)}
-                        onPressMovie={setSelectedMovie}
-                    />
-                </div>
-            )}
+            <LoaderContainer isLoading={loading}>
+                {movieId && (
+                    <div className="py-4">
+                        <Movies
+                            title="Filmes similares"
+                            url={apiEndPoints.movie.similar(movieId)}
+                            onPressMovie={setSelectedMovie}
+                        />
+                        <Movies
+                            title="Recomendados para você"
+                            url={apiEndPoints.movie.recommendations(movieId)}
+                            onPressMovie={setSelectedMovie}
+                        />
+                    </div>
+                )}
+            </LoaderContainer>
 
             <MovieDetail
                 movie={selectedMovie}
                 show={Boolean(selectedMovie.id)}
                 onClose={() => setSelectedMovie({} as IMovie)}
+                pathname="detail"
             />
         </Container>
     )

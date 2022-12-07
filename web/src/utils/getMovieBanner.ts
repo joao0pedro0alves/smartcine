@@ -1,7 +1,7 @@
-import {Actor, IMovie, Producer} from '../@types'
+import {Actor, IMovie, MovieCollection, Producer} from '../@types'
 import {THEMOVIEDB_BANNER_URL, THEMOVIEDB_CAST_PROFILE_URL} from '../config/themoviedb'
 
-export function getMovieBanner(movie: IMovie, isPoster: boolean = false) {
+export function getMovieBanner(movie: IMovie | MovieCollection, isPoster: boolean = false) {
     return (
         THEMOVIEDB_BANNER_URL +
         (isPoster ? movie?.poster_path : movie?.backdrop_path)
