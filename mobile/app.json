@@ -21,11 +21,12 @@
       "supportsTablet": true
     },
     "android": {
+      "permissions": [],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "com.joaoAlvesDev.smartcine"
+      "package": "com.joaoalvesdev.smartcine"
     },
     "web": {
       "favicon": "./assets/favicon.png"
