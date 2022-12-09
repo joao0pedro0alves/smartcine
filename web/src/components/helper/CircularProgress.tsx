@@ -22,7 +22,6 @@ export function CircularProgress({className, labelValue, ...props}: Props) {
 
             <MuiCircularProgress
                 variant="determinate"
-                disableShrink
                 thickness={5}
                 sx={{
                     animationDuration: '550ms',

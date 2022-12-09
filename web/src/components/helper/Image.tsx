@@ -1,19 +1,44 @@
-import {useState} from 'react'
-import NextImage, {ImageProps} from 'next/image'
+import {ImgHTMLAttributes, useState} from 'react'
+import NextImage from 'next/image'
+import clsx from 'clsx'
 
-export function Image(props: ImageProps) {
-    const [loaded, setLoaded] = useState(false)
+interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+    isOptimized?: boolean
+}
+
+export function Image({isOptimized = false, ...props}: ImageProps) {
+    const [loaded, setLoaded] = useState(!isOptimized)
+    const [isLoading, setIsLoading] = useState(true)
+
+    function handleError() {
+        setLoaded(false)
+        setIsLoading(false)
+    }
+
+    const ImageComponent = ({...props}) =>
+        isOptimized ? (
+            <NextImage src={''} alt={''} priority {...props} />
+        ) : (
+            <img onError={handleError} {...props} />
+        )
 
     return (
         <div className="relative">
-            <NextImage
+            <ImageComponent
                 onLoad={() => setLoaded(true)}
                 style={{opacity: loaded ? '1' : '0'}}
                 {...props}
             />
 
             {!loaded && (
-                <div className="animate-pulse absolute inset-0 flex justify-center items-center bg-gray-700">
+                <div
+                    className={clsx(
+                        'absolute inset-0 flex justify-center items-center bg-gray-700',
+                        {
+                            ['animate-pulse']: isLoading,
+                        }
+                    )}
+                >
                     <svg
                         className="w-12 h-12 text-gray-200"
                         xmlns="http://www.w3.org/2000/svg"

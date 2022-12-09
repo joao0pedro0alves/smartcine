@@ -23,7 +23,7 @@ export function MovieCollection({collection}: MovieCollectionProps) {
                 src={getMovieBanner(collection, true)}
                 width={100}
                 height={200}
-                quality={75}
+                // quality={75}
             />
 
             <div className='absolute bottom-0 left-0 right-0 w-full bg-black/60 text-right p-4'>

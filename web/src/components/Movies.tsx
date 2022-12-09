@@ -75,11 +75,11 @@ export function Movies({title, url, showSeeAll = true, onPressMovie}: MoviesProp
                                 onClick={onPressMovie ? () => onPressMovie(item) : undefined}
                             >
                                 <Image
-                                    className='rounded'
                                     alt={`Poster filme ${item.title}`}
                                     src={getMovieBanner(item, true)}
-                                    height={268}
-                                    width={200}
+                                    // height={268}
+                                    // width={200}
+                                    className='rounded w-[200px] h-[268px]'
                                 />
                             </button>
                         )}
