@@ -9,6 +9,7 @@ import {sample} from '../utils/sample'
 
 import {Container} from '../components/Container'
 import {Credits} from '../components/Credits'
+import {Circle} from '../components/helper/Circle'
 import {MovieHeader} from '../components/MovieHeader'
 import {MovieDetail} from '../components/MovieDetail'
 import {MoviePoster} from '../components/MoviePoster'
@@ -21,8 +22,16 @@ interface HomeProps {
 export default function Home({bannerMovie}: HomeProps) {
     const [selectedMovie, setSelectedMovie] = useState<IMovie>({} as IMovie)
 
-    const displayHeader = useCallback(
-        () => (
+    const displayHeader = useCallback(() => {
+        const releaseYear = bannerMovie?.release_date
+            ? moment(bannerMovie?.release_date).format('YYYY')
+            : 'Ano não informado'
+
+        const releaseDate = bannerMovie?.release_date
+            ? moment(bannerMovie?.release_date).format('DD/MM/YYYY')
+            : 'Data não informada'
+
+        return (
             <MovieHeader movie={bannerMovie}>
                 <div className="w-full py-0 flex flex-col items-center gap-16 md:flex-row sm:py-4">
                     <MoviePoster
@@ -35,37 +44,36 @@ export default function Home({bannerMovie}: HomeProps) {
 
                     <div className="py-8">
                         <h1 className="text-white font-serif text-4xl font-black">
-                            {bannerMovie?.title}
+                            {bannerMovie
+                                ? `${bannerMovie?.title} (${releaseYear})`
+                                : '...'}
                         </h1>
 
-                        <p className="text-zinc-200 text-lg py-4">
+                        <div className="flex items-center gap-2 my-2 text-gray-200">
+                            <span>{releaseDate}</span>
+                            <Circle />
+                            <span>
+                                {bannerMovie.vote_count} Avaliações
+                            </span>
+                        </div>
+
+                        <p className="text-gray-200 text-md py-4">
                             {bannerMovie?.overview}
                         </p>
 
-                        <strong className="text-zinc-400">
-                            {moment(bannerMovie?.release_date).format(
-                                'DD [de] MMMM [de] YYYY'
-                            )}
-                            {' | '}
-                            {bannerMovie?.vote_count} Avaliações
-                        </strong>
-
-                        <div className="mt-8">
-                            <Credits movieId={bannerMovie.id} />
-                        </div>
+                        <Credits movieId={bannerMovie.id} />
                     </div>
                 </div>
             </MovieHeader>
-        ),
-        []
-    )
+        )
+    }, [])
 
     return (
         <Container Header={displayHeader}>
             <Head>
                 <title>SmartCine</title>
             </Head>
-            
+
             <div className="py-4">
                 <Movies
                     title="Em alta"
@@ -89,7 +97,6 @@ export default function Home({bannerMovie}: HomeProps) {
                 />
                 <Movies
                     title="Minha lista"
-                    // url={apiEndPoints.movie.topRated}
                     data={[]}
                     onPressMovie={setSelectedMovie}
                 />
@@ -99,7 +106,7 @@ export default function Home({bannerMovie}: HomeProps) {
                 movie={selectedMovie}
                 show={Boolean(selectedMovie.id)}
                 onClose={() => setSelectedMovie({} as IMovie)}
-                pathname='/movies/detail'
+                pathname="/movies/detail"
             />
         </Container>
     )

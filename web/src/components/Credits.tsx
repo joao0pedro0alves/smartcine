@@ -43,7 +43,7 @@ export function Credits({movieId, take = 4}: CreditsProps) {
         <section>
             <div className="mt-4">
                 <div className="flex justify-between">
-                    <span className="text-white text-lg font-bold mb-2 block">
+                    <span className="text-white text-md font-bold mb-2 block">
                         Elenco
                     </span>
                 </div>
@@ -55,17 +55,16 @@ export function Credits({movieId, take = 4}: CreditsProps) {
                         {first(credits.cast, take === 'all' ? credits.cast.length : take).map((actor) => (
                             <div
                                 key={actor.id}
-                                className="bg-gray-800 rounded overflow-hidden w-[112px]"
+                                className="bg-blue-500 rounded-lg overflow-hidden group flex items-center justify-center cursor-pointer opacity-90 hover:opacity-100"
                             >
                                 <Image
                                     key={actor.id}
                                     alt={`Foto ator ${actor.original_name}`}
                                     src={getMovieCastPicture(actor)}
-                                    height={150}
-                                    width={112}
+                                    className='w-full max-w-[100px]'
                                 />
 
-                                <div className="p-2">
+                                <div className="w-0 group-hover:p-4 group-hover:w-[200px] transition-all delay-75 duration-500">
                                     <span className="text-white font-bold block whitespace-nowrap overflow-hidden overflow-ellipsis">
                                         {actor.character}
                                     </span>
@@ -79,7 +78,7 @@ export function Credits({movieId, take = 4}: CreditsProps) {
                 )}
             </div>
 
-            <div className="flex gap-8 mt-4">
+            <div className="flex gap-8 mt-6">
                 <div>
                     <span className="text-white font-bold block">Direção</span>
                     <span className="text-zinc-300 block mb-1">
